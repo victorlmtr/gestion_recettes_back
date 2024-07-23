@@ -2,11 +2,12 @@ package com.gestionrecettes.back.model.mapper;
 
 import com.gestionrecettes.back.model.dto.IngredientDto;
 import com.gestionrecettes.back.model.entity.Ingredient;
+import com.gestionrecettes.back.model.mapper.CategorieIngredientMapper;
 import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {CategorieIngredientMapper.class})
 public interface IngredientMapper {
     Ingredient toEntity(IngredientDto ingredientDto);
 

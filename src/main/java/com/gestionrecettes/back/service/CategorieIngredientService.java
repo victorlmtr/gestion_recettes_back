@@ -13,11 +13,14 @@ import java.util.Optional;
 @Service
 public class CategorieIngredientService {
 
-    @Autowired
-    private CategorieIngredientRepository categorieIngredientRepository;
+    private final CategorieIngredientRepository categorieIngredientRepository;
+    private final CategorieIngredientMapper categorieIngredientMapper;
 
     @Autowired
-    private CategorieIngredientMapper categorieIngredientMapper;
+    public CategorieIngredientService(CategorieIngredientRepository categorieIngredientRepository, CategorieIngredientMapper categorieIngredientMapper) {
+        this.categorieIngredientRepository = categorieIngredientRepository;
+        this.categorieIngredientMapper = categorieIngredientMapper;
+    }
 
     public List<CategorieIngredientDto> getAllCategories() {
         List<CategorieIngredient> categories = categorieIngredientRepository.findAll();

@@ -3,7 +3,9 @@ package com.gestionrecettes.back.controller;
 import com.gestionrecettes.back.model.dto.CategorieIngredientDto;
 import com.gestionrecettes.back.service.CategorieIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,36 +15,58 @@ import java.util.List;
 @RequestMapping("/api/categories-ingredients")
 public class CategorieIngredientController {
 
+    private final CategorieIngredientService categorieIngredientService;
+
     @Autowired
-    private CategorieIngredientService categorieIngredientService;
+    public CategorieIngredientController(CategorieIngredientService categorieIngredientService) {
+        this.categorieIngredientService = categorieIngredientService;
+    }
 
     @GetMapping
     public ResponseEntity<List<CategorieIngredientDto>> getAllCategories() {
         List<CategorieIngredientDto> categories = categorieIngredientService.getAllCategories();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategorieIngredientDto> getCategorieById(@PathVariable Integer id) {
         CategorieIngredientDto category = categorieIngredientService.getCategorieById(id);
-        return category != null ? new ResponseEntity<>(category, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (category != null) {
+            return ResponseEntity.ok(category);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/{id}/icon")
+    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
+        CategorieIngredientDto categorieDto = categorieIngredientService.getCategorieById(id);
+        if (categorieDto == null || categorieDto.getIconeCategorie() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(categorieDto.getIconeCategorie(), headers, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<CategorieIngredientDto> createCategorie(@RequestBody CategorieIngredientDto categorieDto) {
         CategorieIngredientDto createdCategorie = categorieIngredientService.createCategorie(categorieDto);
-        return new ResponseEntity<>(createdCategorie, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCategorie);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategorieIngredientDto> updateCategorie(@PathVariable Integer id, @RequestBody CategorieIngredientDto categorieDto) {
         CategorieIngredientDto updatedCategorie = categorieIngredientService.updateCategorie(id, categorieDto);
-        return updatedCategorie != null ? new ResponseEntity<>(updatedCategorie, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (updatedCategorie != null) {
+            return ResponseEntity.ok(updatedCategorie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategorie(@PathVariable Integer id) {
         categorieIngredientService.deleteCategorie(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
