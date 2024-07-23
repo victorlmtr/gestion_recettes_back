@@ -1,11 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "ingredient")
 public class Ingredient {
     @Id
@@ -33,53 +37,5 @@ public class Ingredient {
             joinColumns = @JoinColumn(name = "id_ingredient"),
             inverseJoinColumns = @JoinColumn(name = "id_utilisateur"))
     private Set<Utilisateur> utilisateurs = new LinkedHashSet<>();
-
-    public Set<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
-
-    public Set<IngredientRecette> getIngredientRecettes() {
-        return ingredientRecettes;
-    }
-
-    public void setIngredientRecettes(Set<IngredientRecette> ingredientRecettes) {
-        this.ingredientRecettes = ingredientRecettes;
-    }
-
-    public Set<ListeCourses> getListeCourses() {
-        return listeCourses;
-    }
-
-    public void setListeCourses(Set<ListeCourses> listeCourses) {
-        this.listeCourses = listeCourses;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibIngredient() {
-        return libIngredient;
-    }
-
-    public void setLibIngredient(String libIngredient) {
-        this.libIngredient = libIngredient;
-    }
-
-    public CategorieIngredient getIdCategorieIngredient() {
-        return idCategorieIngredient;
-    }
-
-    public void setIdCategorieIngredient(CategorieIngredient idCategorieIngredient) {
-        this.idCategorieIngredient = idCategorieIngredient;
-    }
 
 }

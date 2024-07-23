@@ -1,9 +1,13 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.Objects;
 @Entity
+@Getter
+@Setter
 @Table(name = "choix_categories")
 public class ChoixCategory {
     @EmbeddedId
@@ -18,29 +22,5 @@ public class ChoixCategory {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_regime_recette", nullable = false)
     private RegimeRecette idRegimeRecette;
-
-    public ChoixCategoryId getId() {
-        return id;
-    }
-
-    public void setId(ChoixCategoryId id) {
-        this.id = id;
-    }
-
-    public Utilisateur getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Utilisateur idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public RegimeRecette getIdRegimeRecette() {
-        return idRegimeRecette;
-    }
-
-    public void setIdRegimeRecette(RegimeRecette idRegimeRecette) {
-        this.idRegimeRecette = idRegimeRecette;
-    }
 
 }

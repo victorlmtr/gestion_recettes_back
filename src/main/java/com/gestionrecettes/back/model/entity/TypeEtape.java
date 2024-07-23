@@ -1,11 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "type_etape")
 public class TypeEtape {
     @Id
@@ -18,28 +22,5 @@ public class TypeEtape {
     @OneToMany(mappedBy = "idTypeEtape")
     private Set<Etape> etapes = new LinkedHashSet<>();
 
-    public Set<Etape> getEtapes() {
-        return etapes;
-    }
-
-    public void setEtapes(Set<Etape> etapes) {
-        this.etapes = etapes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibTypeEtape() {
-        return libTypeEtape;
-    }
-
-    public void setLibTypeEtape(String libTypeEtape) {
-        this.libTypeEtape = libTypeEtape;
-    }
 
 }

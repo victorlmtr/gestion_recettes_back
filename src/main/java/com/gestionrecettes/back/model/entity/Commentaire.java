@@ -1,11 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.Objects;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "commentaires")
 public class Commentaire {
     @EmbeddedId
@@ -29,53 +33,4 @@ public class Commentaire {
 
     @Column(name = "date_commentaire")
     private LocalDate dateCommentaire;
-
-    public CommentaireId getId() {
-        return id;
-    }
-
-    public void setId(CommentaireId id) {
-        this.id = id;
-    }
-
-    public Utilisateur getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Utilisateur idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public Recette getIdRecette() {
-        return idRecette;
-    }
-
-    public void setIdRecette(Recette idRecette) {
-        this.idRecette = idRecette;
-    }
-
-    public Double getNoteAvis() {
-        return noteAvis;
-    }
-
-    public void setNoteAvis(Double noteAvis) {
-        this.noteAvis = noteAvis;
-    }
-
-    public String getCommentaireAvis() {
-        return commentaireAvis;
-    }
-
-    public void setCommentaireAvis(String commentaireAvis) {
-        this.commentaireAvis = commentaireAvis;
-    }
-
-    public LocalDate getDateCommentaire() {
-        return dateCommentaire;
-    }
-
-    public void setDateCommentaire(LocalDate dateCommentaire) {
-        this.dateCommentaire = dateCommentaire;
-    }
-
 }

@@ -1,10 +1,14 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.Objects;
 
 @Embeddable
+@Getter
+@Setter
 public class ComposerId implements java.io.Serializable {
     private static final long serialVersionUID = 6134612271464596039L;
     @Column(name = "id_liste_courses", nullable = false)
@@ -12,22 +16,6 @@ public class ComposerId implements java.io.Serializable {
 
     @Column(name = "id_ingredient", nullable = false)
     private Integer idIngredient;
-
-    public Integer getIdListeCourses() {
-        return idListeCourses;
-    }
-
-    public void setIdListeCourses(Integer idListeCourses) {
-        this.idListeCourses = idListeCourses;
-    }
-
-    public Integer getIdIngredient() {
-        return idIngredient;
-    }
-
-    public void setIdIngredient(Integer idIngredient) {
-        this.idIngredient = idIngredient;
-    }
 
     @Override
     public boolean equals(Object o) {

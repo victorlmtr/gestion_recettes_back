@@ -1,11 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "regime_recette")
 public class RegimeRecette {
     @Id
@@ -29,45 +33,4 @@ public class RegimeRecette {
             joinColumns = @JoinColumn(name = "id_regime_recette"),
             inverseJoinColumns = @JoinColumn(name = "id_utilisateur"))
     private Set<Utilisateur> utilisateurs = new LinkedHashSet<>();
-
-    public Set<Utilisateur> getUtilisateurs() {
-        return utilisateurs;
-    }
-
-    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
-        this.utilisateurs = utilisateurs;
-    }
-
-    public Set<Recette> getRecettes() {
-        return recettes;
-    }
-
-    public void setRecettes(Set<Recette> recettes) {
-        this.recettes = recettes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibRegimeRecette() {
-        return libRegimeRecette;
-    }
-
-    public void setLibRegimeRecette(String libRegimeRecette) {
-        this.libRegimeRecette = libRegimeRecette;
-    }
-
-    public byte[] getIconeRegimeRecette() {
-        return iconeRegimeRecette;
-    }
-
-    public void setIconeRegimeRecette(byte[] iconeRegimeRecette) {
-        this.iconeRegimeRecette = iconeRegimeRecette;
-    }
-
 }

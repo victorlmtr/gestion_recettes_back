@@ -1,9 +1,13 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "ingredient_recette")
 public class IngredientRecette {
     @EmbeddedId
@@ -34,61 +38,5 @@ public class IngredientRecette {
 
     @Column(name = "quantite", nullable = false)
     private Double quantite;
-
-    public IngredientRecetteId getId() {
-        return id;
-    }
-
-    public void setId(IngredientRecetteId id) {
-        this.id = id;
-    }
-
-    public Ingredient getIdIngredient() {
-        return idIngredient;
-    }
-
-    public void setIdIngredient(Ingredient idIngredient) {
-        this.idIngredient = idIngredient;
-    }
-
-    public Etape getIdEtape() {
-        return idEtape;
-    }
-
-    public void setIdEtape(Etape idEtape) {
-        this.idEtape = idEtape;
-    }
-
-    public UniteMesure getIdUniteMesure() {
-        return idUniteMesure;
-    }
-
-    public void setIdUniteMesure(UniteMesure idUniteMesure) {
-        this.idUniteMesure = idUniteMesure;
-    }
-
-    public IngredientDetails getIdIngredientDetails() {
-        return idIngredientDetails;
-    }
-
-    public void setIdIngredientDetails(IngredientDetails idIngredientDetails) {
-        this.idIngredientDetails = idIngredientDetails;
-    }
-
-    public Boolean getEstFacultatif() {
-        return estFacultatif;
-    }
-
-    public void setEstFacultatif(Boolean estFacultatif) {
-        this.estFacultatif = estFacultatif;
-    }
-
-    public Double getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(Double quantite) {
-        this.quantite = quantite;
-    }
 
 }
