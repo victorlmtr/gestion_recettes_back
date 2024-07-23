@@ -1,12 +1,10 @@
 package com.gestionrecettes.back.model.entity;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
-
+import jakarta.persistence.*;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,18 +12,18 @@ import java.util.Set;
 @Setter
 @Table(name = "categorie_ingredient")
 public class CategorieIngredient {
+
     @Id
-    @Column(name = "id_categorie_ingredient", nullable = false)
+    @Column(name = "id_categorie_ingredient")
     private Integer id;
 
-    @Column(name = "lib_categorie_ingredient", nullable = false, length = 100)
+    @Column(name = "lib_categorie_ingredient", nullable = false)
     private String libCategorieIngredient;
 
-    @Column(name = "icone_categorie", nullable = false)
+    @Column(name = "icone_categorie")
     private byte[] iconeCategorie;
 
-    @OneToMany(mappedBy = "idCategorieIngredient")
+    @OneToMany(mappedBy = "categorieIngredient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Manage serialization of ingredients
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
-
-
 }

@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -21,7 +22,8 @@ public class Ingredient {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_categorie_ingredient", nullable = false)
-    private CategorieIngredient idCategorieIngredient;
+    @JsonBackReference
+    private CategorieIngredient categorieIngredient;
 
     @ManyToMany
     @JoinTable(name = "composer",

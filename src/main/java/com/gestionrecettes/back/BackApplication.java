@@ -23,7 +23,6 @@ public class BackApplication {
 @Bean
 	CommandLineRunner start(AccountService accountService){
 		return args -> {
-accountService.addNewRole(new Role("roletest"));
 		};
 	}
 

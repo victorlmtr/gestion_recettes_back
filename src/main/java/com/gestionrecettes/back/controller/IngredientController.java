@@ -13,36 +13,48 @@ import java.util.List;
 @RequestMapping("/api/ingredients")
 public class IngredientController {
 
+    private final IngredientService ingredientService;
+
     @Autowired
-    private IngredientService ingredientService;
+    public IngredientController(IngredientService ingredientService) {
+        this.ingredientService = ingredientService;
+    }
 
     @GetMapping
     public ResponseEntity<List<IngredientDto>> getAllIngredients() {
         List<IngredientDto> ingredients = ingredientService.getAllIngredients();
-        return new ResponseEntity<>(ingredients, HttpStatus.OK);
+        return ResponseEntity.ok(ingredients);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<IngredientDto> getIngredientById(@PathVariable Integer id) {
         IngredientDto ingredient = ingredientService.getIngredientById(id);
-        return ingredient != null ? new ResponseEntity<>(ingredient, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (ingredient != null) {
+            return ResponseEntity.ok(ingredient);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<IngredientDto> createIngredient(@RequestBody IngredientDto ingredientDto) {
         IngredientDto createdIngredient = ingredientService.createIngredient(ingredientDto);
-        return new ResponseEntity<>(createdIngredient, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdIngredient);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<IngredientDto> updateIngredient(@PathVariable Integer id, @RequestBody IngredientDto ingredientDto) {
         IngredientDto updatedIngredient = ingredientService.updateIngredient(id, ingredientDto);
-        return updatedIngredient != null ? new ResponseEntity<>(updatedIngredient, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (updatedIngredient != null) {
+            return ResponseEntity.ok(updatedIngredient);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIngredient(@PathVariable Integer id) {
         ingredientService.deleteIngredient(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }

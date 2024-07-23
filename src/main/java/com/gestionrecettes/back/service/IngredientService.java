@@ -13,11 +13,14 @@ import java.util.Optional;
 @Service
 public class IngredientService {
 
-    @Autowired
-    private IngredientRepository ingredientRepository;
+    private final IngredientRepository ingredientRepository;
+    private final IngredientMapper ingredientMapper;
 
     @Autowired
-    private IngredientMapper ingredientMapper;
+    public IngredientService(IngredientRepository ingredientRepository, IngredientMapper ingredientMapper) {
+        this.ingredientRepository = ingredientRepository;
+        this.ingredientMapper = ingredientMapper;
+    }
 
     public List<IngredientDto> getAllIngredients() {
         List<Ingredient> ingredients = ingredientRepository.findAll();

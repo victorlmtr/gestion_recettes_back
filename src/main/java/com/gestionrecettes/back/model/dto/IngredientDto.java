@@ -11,4 +11,5 @@ import java.io.Serializable;
 public class IngredientDto implements Serializable {
     Integer id;
     String libIngredient;
+    CategorieIngredientDto categorieIngredient;
 }
