@@ -1,10 +1,14 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "favoris")
 public class Favoris {
     @EmbeddedId
@@ -22,37 +26,5 @@ public class Favoris {
 
     @Column(name = "date_favori", nullable = false)
     private LocalDate dateFavori;
-
-    public FavorisId getId() {
-        return id;
-    }
-
-    public void setId(FavorisId id) {
-        this.id = id;
-    }
-
-    public Recette getIdRecette() {
-        return idRecette;
-    }
-
-    public void setIdRecette(Recette idRecette) {
-        this.idRecette = idRecette;
-    }
-
-    public Utilisateur getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Utilisateur idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
-
-    public LocalDate getDateFavori() {
-        return dateFavori;
-    }
-
-    public void setDateFavori(LocalDate dateFavori) {
-        this.dateFavori = dateFavori;
-    }
 
 }

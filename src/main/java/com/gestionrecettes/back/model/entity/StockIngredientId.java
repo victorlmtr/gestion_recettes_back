@@ -1,10 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.Objects;
 
 @Embeddable
+@Getter
+@Setter
+
 public class StockIngredientId implements java.io.Serializable {
     private static final long serialVersionUID = 5736225677277140478L;
     @Column(name = "id_ingredient", nullable = false)
@@ -12,22 +17,6 @@ public class StockIngredientId implements java.io.Serializable {
 
     @Column(name = "id_utilisateur", nullable = false)
     private Integer idUtilisateur;
-
-    public Integer getIdIngredient() {
-        return idIngredient;
-    }
-
-    public void setIdIngredient(Integer idIngredient) {
-        this.idIngredient = idIngredient;
-    }
-
-    public Integer getIdUtilisateur() {
-        return idUtilisateur;
-    }
-
-    public void setIdUtilisateur(Integer idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
-    }
 
     @Override
     public boolean equals(Object o) {

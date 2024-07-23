@@ -1,5 +1,7 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -7,6 +9,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "recette")
 public class Recette {
     @Id
@@ -55,118 +59,7 @@ public class Recette {
     private Set<Etape> etapes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idRecette")
-    private Set<Favoris> favorises = new LinkedHashSet<>();
+    private Set<Favoris> favorites = new LinkedHashSet<>();
 
-    public Set<Favoris> getFavorises() {
-        return favorises;
-    }
-
-    public void setFavorises(Set<Favoris> favorises) {
-        this.favorises = favorises;
-    }
-
-    public Set<Etape> getEtapes() {
-        return etapes;
-    }
-
-    public void setEtapes(Set<Etape> etapes) {
-        this.etapes = etapes;
-    }
-
-    public Set<Commentaire> getCommentaires() {
-        return commentaires;
-    }
-
-    public void setCommentaires(Set<Commentaire> commentaires) {
-        this.commentaires = commentaires;
-    }
-
-    public Set<RegimeRecette> getRegimeRecettes() {
-        return regimeRecettes;
-    }
-
-    public void setRegimeRecettes(Set<RegimeRecette> regimeRecettes) {
-        this.regimeRecettes = regimeRecettes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibRecette() {
-        return libRecette;
-    }
-
-    public void setLibRecette(String libRecette) {
-        this.libRecette = libRecette;
-    }
-
-    public String getDescriptionRecette() {
-        return descriptionRecette;
-    }
-
-    public void setDescriptionRecette(String descriptionRecette) {
-        this.descriptionRecette = descriptionRecette;
-    }
-
-    public Integer getDifficulteRecette() {
-        return difficulteRecette;
-    }
-
-    public void setDifficulteRecette(Integer difficulteRecette) {
-        this.difficulteRecette = difficulteRecette;
-    }
-
-    public Integer getNombrePortion() {
-        return nombrePortion;
-    }
-
-    public void setNombrePortion(Integer nombrePortion) {
-        this.nombrePortion = nombrePortion;
-    }
-
-    public String getRemarqueRecette() {
-        return remarqueRecette;
-    }
-
-    public void setRemarqueRecette(String remarqueRecette) {
-        this.remarqueRecette = remarqueRecette;
-    }
-
-    public LocalDate getDatePublicationRecette() {
-        return datePublicationRecette;
-    }
-
-    public void setDatePublicationRecette(LocalDate datePublicationRecette) {
-        this.datePublicationRecette = datePublicationRecette;
-    }
-
-    public byte[] getImageRecette() {
-        return imageRecette;
-    }
-
-    public void setImageRecette(byte[] imageRecette) {
-        this.imageRecette = imageRecette;
-    }
-
-    public Pays getIdPays() {
-        return idPays;
-    }
-
-    public void setIdPays(Pays idPays) {
-        this.idPays = idPays;
-    }
-
-    public TypeRecette getIdTypeRecette() {
-        return idTypeRecette;
-    }
-
-    public void setIdTypeRecette(TypeRecette idTypeRecette) {
-        this.idTypeRecette = idTypeRecette;
-    }
 
 }

@@ -1,11 +1,15 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "type_recette")
 public class TypeRecette {
     @Id
@@ -20,37 +24,5 @@ public class TypeRecette {
 
     @OneToMany(mappedBy = "idTypeRecette")
     private Set<Recette> recettes = new LinkedHashSet<>();
-
-    public Set<Recette> getRecettes() {
-        return recettes;
-    }
-
-    public void setRecettes(Set<Recette> recettes) {
-        this.recettes = recettes;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibTypeRecette() {
-        return libTypeRecette;
-    }
-
-    public void setLibTypeRecette(String libTypeRecette) {
-        this.libTypeRecette = libTypeRecette;
-    }
-
-    public byte[] getIconeTypeRecette() {
-        return iconeTypeRecette;
-    }
-
-    public void setIconeTypeRecette(byte[] iconeTypeRecette) {
-        this.iconeTypeRecette = iconeTypeRecette;
-    }
 
 }

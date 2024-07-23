@@ -1,9 +1,13 @@
 package com.gestionrecettes.back.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "role")
 public class Role {
     @Id
@@ -19,22 +23,6 @@ public class Role {
     public Role() {}
 
     public Role(String libRole) {
-        this.libRole = libRole;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibRole() {
-        return libRole;
-    }
-
-    public void setLibRole(String libRole) {
         this.libRole = libRole;
     }
 

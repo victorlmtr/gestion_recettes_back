@@ -1,8 +1,12 @@
 package com.gestionrecettes.back.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "categoriser")
 public class Categoriser {
     @EmbeddedId
@@ -17,29 +21,5 @@ public class Categoriser {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_recette", nullable = false)
     private Recette idRecette;
-
-    public CategoriserId getId() {
-        return id;
-    }
-
-    public void setId(CategoriserId id) {
-        this.id = id;
-    }
-
-    public RegimeRecette getIdRegimeRecette() {
-        return idRegimeRecette;
-    }
-
-    public void setIdRegimeRecette(RegimeRecette idRegimeRecette) {
-        this.idRegimeRecette = idRegimeRecette;
-    }
-
-    public Recette getIdRecette() {
-        return idRecette;
-    }
-
-    public void setIdRecette(Recette idRecette) {
-        this.idRecette = idRecette;
-    }
 
 }

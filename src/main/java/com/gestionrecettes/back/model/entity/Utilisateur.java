@@ -1,6 +1,8 @@
 package com.gestionrecettes.back.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
