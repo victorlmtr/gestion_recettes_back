@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ContinentMapper {
-    ContinentMapper INSTANCE = Mappers.getMapper(ContinentMapper.class);
 
     ContinentDto toDto(Continent continent);
 
