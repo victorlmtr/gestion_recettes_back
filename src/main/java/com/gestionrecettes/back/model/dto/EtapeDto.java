@@ -25,6 +25,5 @@ public class EtapeDto implements Serializable {
     public static class TypeEtapeDto implements Serializable {
         Integer id;
         String libTypeEtape;
-        Set<Etape> etapes;
     }
 }

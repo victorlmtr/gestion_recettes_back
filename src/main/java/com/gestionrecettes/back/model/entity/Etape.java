@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -30,8 +31,9 @@ public class Etape {
     @JoinColumn(name = "id_recette", nullable = false)
     private Recette idRecette;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_type_etape")
+    @JsonManagedReference
     private TypeEtape idTypeEtape;
 
     @OneToMany(mappedBy = "id.idEtape")

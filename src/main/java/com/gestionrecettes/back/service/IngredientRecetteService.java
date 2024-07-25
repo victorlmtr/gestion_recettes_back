@@ -46,8 +46,7 @@ public class IngredientRecetteService {
                                 ingredientRecette.getEtape().getImageEtape(),
                                 new EtapeDto.TypeEtapeDto(
                                         ingredientRecette.getEtape().getIdTypeEtape().getId(),
-                                        ingredientRecette.getEtape().getIdTypeEtape().getLibTypeEtape(),
-                                        ingredientRecette.getEtape().getIdTypeEtape().getEtapes()
+                                        ingredientRecette.getEtape().getIdTypeEtape().getLibTypeEtape()
                                 )
                         ),
                         new UniteMesureDto(
@@ -87,8 +86,7 @@ public class IngredientRecetteService {
                         ingredientRecette.getEtape().getImageEtape(),
                         new EtapeDto.TypeEtapeDto(
                                 ingredientRecette.getEtape().getIdTypeEtape().getId(),
-                                ingredientRecette.getEtape().getIdTypeEtape().getLibTypeEtape(),
-                                ingredientRecette.getEtape().getIdTypeEtape().getEtapes()
+                                ingredientRecette.getEtape().getIdTypeEtape().getLibTypeEtape()
                         )
                 ),
                 new UniteMesureDto(

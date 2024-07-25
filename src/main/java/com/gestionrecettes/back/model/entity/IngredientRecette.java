@@ -18,19 +18,19 @@ public class IngredientRecette {
     @Column(name = "quantite", nullable = false)
     private Double quantite;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_ingredient", nullable = false, insertable = false, updatable = false)
     private Ingredient ingredient;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_etape", nullable = false, insertable = false, updatable = false)
     private Etape etape;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_ingredient_details", nullable = false, insertable = false, updatable = false)
     private IngredientDetails ingredientDetails;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_unite_mesure", nullable = false, insertable = false, updatable = false)
     private UniteMesure uniteMesure;
 
