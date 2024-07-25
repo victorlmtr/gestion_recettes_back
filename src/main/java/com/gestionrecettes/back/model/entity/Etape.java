@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,8 @@ public class Etape {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_recette", nullable = false)
-    private Recette idRecette;
+    @JsonBackReference
+    private Recette recette;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_type_etape")

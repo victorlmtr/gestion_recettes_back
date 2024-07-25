@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -21,16 +22,4 @@ public class RegimeRecette {
 
     @Column(name = "icone_regime_recette")
     private byte[] iconeRegimeRecette;
-
-    @ManyToMany
-    @JoinTable(name = "categoriser",
-            joinColumns = @JoinColumn(name = "id_regime_recette"),
-            inverseJoinColumns = @JoinColumn(name = "id_recette"))
-    private Set<Recette> recettes = new LinkedHashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "choix_categories",
-            joinColumns = @JoinColumn(name = "id_regime_recette"),
-            inverseJoinColumns = @JoinColumn(name = "id_utilisateur"))
-    private Set<Utilisateur> utilisateurs = new LinkedHashSet<>();
 }
