@@ -38,11 +38,11 @@ public class Recette {
     @Column(name = "image_recette")
     private byte[] imageRecette;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_pays", nullable = false)
     private Pays idPays;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_type_recette", nullable = false)
     private TypeRecette idTypeRecette;
 

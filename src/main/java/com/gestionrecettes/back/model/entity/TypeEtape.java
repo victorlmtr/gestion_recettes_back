@@ -1,5 +1,7 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -18,9 +20,5 @@ public class TypeEtape {
 
     @Column(name = "lib_type_etape", nullable = false, length = 2000)
     private String libTypeEtape;
-
-    @OneToMany(mappedBy = "idTypeEtape")
-    private Set<Etape> etapes = new LinkedHashSet<>();
-
 
 }
