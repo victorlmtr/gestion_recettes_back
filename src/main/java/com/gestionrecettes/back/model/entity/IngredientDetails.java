@@ -2,7 +2,6 @@ package com.gestionrecettes.back.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,7 +18,7 @@ public class IngredientDetails {
     @Column(name = "lib_ingredient_details", nullable = false, length = 2000)
     private String libIngredientDetails;
 
-    @OneToMany(mappedBy = "idIngredientDetails")
+    @OneToMany(mappedBy = "id.idIngredientDetails")
     private Set<IngredientRecette> ingredientRecettes = new LinkedHashSet<>();
 
 }

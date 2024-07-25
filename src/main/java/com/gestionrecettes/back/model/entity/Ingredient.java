@@ -31,7 +31,7 @@ public class Ingredient {
             inverseJoinColumns = @JoinColumn(name = "id_liste_courses"))
     private Set<ListeCourses> listeCourses = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idIngredient")
+    @OneToMany(mappedBy = "id.idIngredient")
     private Set<IngredientRecette> ingredientRecettes = new LinkedHashSet<>();
 
     @ManyToMany
