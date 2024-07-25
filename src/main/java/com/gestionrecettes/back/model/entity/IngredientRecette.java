@@ -2,7 +2,6 @@ package com.gestionrecettes.back.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,30 +12,26 @@ public class IngredientRecette {
     @EmbeddedId
     private IngredientRecetteId id;
 
-    @MapsId("idIngredient")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_ingredient", nullable = false)
-    private Ingredient idIngredient;
-
-    @MapsId("idEtape")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_etape", nullable = false)
-    private Etape idEtape;
-
-    @MapsId("idUniteMesure")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_unite_mesure", nullable = false)
-    private UniteMesure idUniteMesure;
-
-    @MapsId("idIngredientDetails")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_ingredient_details", nullable = false)
-    private IngredientDetails idIngredientDetails;
-
     @Column(name = "est_facultatif", nullable = false)
     private Boolean estFacultatif = false;
 
     @Column(name = "quantite", nullable = false)
     private Double quantite;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_ingredient", nullable = false, insertable = false, updatable = false)
+    private Ingredient ingredient;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_etape", nullable = false, insertable = false, updatable = false)
+    private Etape etape;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_ingredient_details", nullable = false, insertable = false, updatable = false)
+    private IngredientDetails ingredientDetails;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_unite_mesure", nullable = false, insertable = false, updatable = false)
+    private UniteMesure uniteMesure;
 
 }

@@ -19,7 +19,7 @@ public class UniteMesure {
     @Column(name = "lib_unite_mesure", nullable = false, length = 100)
     private String libUniteMesure;
 
-    @OneToMany(mappedBy = "idUniteMesure")
+    @OneToMany(mappedBy = "id.idUniteMesure")
     private Set<IngredientRecette> ingredientRecettes = new LinkedHashSet<>();
 
 }

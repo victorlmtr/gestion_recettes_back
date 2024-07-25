@@ -34,7 +34,7 @@ public class Etape {
     @JoinColumn(name = "id_type_etape")
     private TypeEtape idTypeEtape;
 
-    @OneToMany(mappedBy = "idEtape")
+    @OneToMany(mappedBy = "id.idEtape")
     private Set<IngredientRecette> ingredientRecettes = new LinkedHashSet<>();
 
 }

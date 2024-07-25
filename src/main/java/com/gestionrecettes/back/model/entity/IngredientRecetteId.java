@@ -4,13 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 @Getter
 @Setter
-public class IngredientRecetteId implements java.io.Serializable {
+public class IngredientRecetteId implements Serializable {
+
     private static final long serialVersionUID = -3701357569005071273L;
+
     @Column(name = "id_ingredient", nullable = false)
     private Integer idIngredient;
 
@@ -22,7 +25,6 @@ public class IngredientRecetteId implements java.io.Serializable {
 
     @Column(name = "id_ingredient_details", nullable = false)
     private Integer idIngredientDetails;
-
 
     @Override
     public boolean equals(Object o) {
@@ -39,5 +41,4 @@ public class IngredientRecetteId implements java.io.Serializable {
     public int hashCode() {
         return Objects.hash(idIngredientDetails, idEtape, idIngredient, idUniteMesure);
     }
-
 }
