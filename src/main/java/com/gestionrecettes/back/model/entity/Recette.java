@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
@@ -50,12 +51,14 @@ public class Recette {
     @JoinTable(name = "categoriser",
             joinColumns = @JoinColumn(name = "id_recette"),
             inverseJoinColumns = @JoinColumn(name = "id_regime_recette"))
+    @JsonManagedReference
     private Set<RegimeRecette> regimeRecettes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idRecette")
     private Set<Commentaire> commentaires = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idRecette")
+    @OneToMany(mappedBy = "recette")
+    @JsonManagedReference
     private Set<Etape> etapes = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "idRecette")

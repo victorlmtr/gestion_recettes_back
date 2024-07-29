@@ -14,7 +14,7 @@ public interface RecetteMapper {
 
     @AfterMapping
     default void linkEtapes(@MappingTarget Recette recette) {
-        recette.getEtapes().forEach(etape -> etape.setIdRecette(recette));
+        recette.getEtapes().forEach(etape -> etape.setRecette(recette));
     }
 
     RecetteDto toDto(Recette recette);
