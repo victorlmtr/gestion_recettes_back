@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/ingredient-recettes")
+@RequestMapping("/api/recipe-ingredients")
 public class IngredientRecetteController {
 
     @Autowired

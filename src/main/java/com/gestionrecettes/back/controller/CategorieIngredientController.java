@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/categories-ingredients")
+@RequestMapping("/api/ingredient-categories")
 public class CategorieIngredientController {
 
     private final CategorieIngredientService categorieIngredientService;

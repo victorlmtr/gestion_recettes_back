@@ -24,31 +24,31 @@ public class RecetteController {
         this.recetteService = recetteService;
     }
 
-    @PostMapping("/recettes")
+    @PostMapping("/recipes")
     public ResponseEntity<RecetteDto> createRecette(@RequestBody RecetteDto recetteDto) {
         RecetteDto createdRecette = recetteService.createRecette(recetteDto);
         return new ResponseEntity<>(createdRecette, HttpStatus.CREATED);
     }
 
-    @PutMapping("/recettes/{id}")
+    @PutMapping("/recipes/{id}")
     public ResponseEntity<RecetteDto> updateRecette(@PathVariable Integer id, @RequestBody RecetteDto recetteDto) {
         RecetteDto updatedRecette = recetteService.updateRecette(recetteDto);
         return new ResponseEntity<>(updatedRecette, HttpStatus.OK);
     }
 
-    @DeleteMapping("/recettes/{id}")
+    @DeleteMapping("/recipes/{id}")
     public ResponseEntity<Void> deleteRecette(@PathVariable Integer id) {
         recetteService.deleteRecette(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/recettes")
+    @GetMapping("/recipes")
     public ResponseEntity<List<RecetteDto>> getAllRecettes() {
         List<RecetteDto> recettes = recetteService.getAllRecettes();
         return new ResponseEntity<>(recettes, HttpStatus.OK);
     }
 
-    @GetMapping("/recettes/{id}")
+    @GetMapping("/recipes/{id}")
     public ResponseEntity<RecetteDto> getRecetteById(@PathVariable Integer id) {
         RecetteDto recette = recetteService.getRecetteById(id);
         return new ResponseEntity<>(recette, HttpStatus.OK);
