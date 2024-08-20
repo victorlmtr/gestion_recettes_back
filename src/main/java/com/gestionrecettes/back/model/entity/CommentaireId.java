@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 @Getter
 @Setter
-public class CommentaireId implements java.io.Serializable {
+public class CommentaireId implements Serializable {
     private static final long serialVersionUID = 1015155802779845985L;
     @Column(name = "id_utilisateur", nullable = false)
     private Integer idUtilisateur;

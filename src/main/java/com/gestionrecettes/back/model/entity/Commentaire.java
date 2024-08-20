@@ -15,15 +15,13 @@ public class Commentaire {
     @EmbeddedId
     private CommentaireId id;
 
-    @MapsId("idUtilisateur")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_utilisateur", nullable = false)
-    private Utilisateur idUtilisateur;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_utilisateur", nullable = false, insertable = false, updatable = false)
+    private Utilisateur utilisateur;
 
-    @MapsId("idRecette")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_recette", nullable = false)
-    private Recette idRecette;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_recette", nullable = false, insertable = false, updatable = false)
+    private Recette recette;
 
     @Column(name = "note_avis", nullable = false)
     private Double noteAvis;

@@ -54,8 +54,6 @@ public class Recette {
     @JsonManagedReference
     private Set<RegimeRecette> regimeRecettes = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idRecette")
-    private Set<Commentaire> commentaires = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "recette")
     @JsonManagedReference

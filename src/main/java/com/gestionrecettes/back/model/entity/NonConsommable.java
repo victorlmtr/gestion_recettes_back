@@ -19,10 +19,4 @@ public class NonConsommable {
     @Column(name = "lib_non_consommable", nullable = false, length = 100)
     private String libNonConsommable;
 
-    @ManyToMany
-    @JoinTable(name = "cataloguer",
-            joinColumns = @JoinColumn(name = "id_non_consommable"),
-            inverseJoinColumns = @JoinColumn(name = "id_liste_courses"))
-    private Set<ListeCourses> listeCourses = new LinkedHashSet<>();
-
 }

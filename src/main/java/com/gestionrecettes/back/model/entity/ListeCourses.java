@@ -19,17 +19,4 @@ public class ListeCourses {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur idUtilisateur;
-
-    @ManyToMany
-    @JoinTable(name = "cataloguer",
-            joinColumns = @JoinColumn(name = "id_liste_courses"),
-            inverseJoinColumns = @JoinColumn(name = "id_non_consommable"))
-    private Set<NonConsommable> nonConsommables = new LinkedHashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "composer",
-            joinColumns = @JoinColumn(name = "id_liste_courses"),
-            inverseJoinColumns = @JoinColumn(name = "id_ingredient"))
-    private Set<Ingredient> ingredients = new LinkedHashSet<>();
-
 }
