@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 public class AuthController {
 private AccountService accountService;
-
     @Autowired
     public AuthController(@Lazy AccountService accountService) {
         this.accountService = accountService;

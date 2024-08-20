@@ -1,0 +1,58 @@
+package com.gestionrecettes.back.controller;
+
+import com.gestionrecettes.back.model.dto.UtilisateurDto;
+import com.gestionrecettes.back.service.UtilisateurService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/utilisateurs")
+public class UtilisateurController {
+
+    private final UtilisateurService utilisateurService;
+
+    @Autowired
+    public UtilisateurController(UtilisateurService utilisateurService) {
+        this.utilisateurService = utilisateurService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateurs() {
+        List<UtilisateurDto> utilisateurs = utilisateurService.getAllUtilisateurs();
+        return new ResponseEntity<>(utilisateurs, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UtilisateurDto> getUtilisateurById(@PathVariable Long id) {
+        UtilisateurDto utilisateur = utilisateurService.getUtilisateurById(id);
+        return utilisateur != null ? new ResponseEntity<>(utilisateur, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/nom/{nomUtilisateur}")
+    public ResponseEntity<UtilisateurDto> getUtilisateurByNomUtilisateur(@PathVariable String nomUtilisateur) {
+        UtilisateurDto utilisateur = utilisateurService.getUtilisateurByNomUtilisateur(nomUtilisateur);
+        return utilisateur != null ? new ResponseEntity<>(utilisateur, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    public ResponseEntity<UtilisateurDto> createUtilisateur(@RequestBody UtilisateurDto utilisateurDto) {
+        UtilisateurDto createdUtilisateur = utilisateurService.createUtilisateur(utilisateurDto);
+        return new ResponseEntity<>(createdUtilisateur, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable Long id, @RequestBody UtilisateurDto utilisateurDto) {
+        UtilisateurDto updatedUtilisateur = utilisateurService.updateUtilisateur(id, utilisateurDto);
+        return updatedUtilisateur != null ? new ResponseEntity<>(updatedUtilisateur, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUtilisateur(@PathVariable Long id) {
+        utilisateurService.deleteUtilisateur(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
