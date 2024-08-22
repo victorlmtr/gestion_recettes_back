@@ -10,7 +10,7 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
-public class CataloguerId implements java.io.Serializable {
+public class NonFoodListId implements java.io.Serializable {
     private static final long serialVersionUID = -5746264720144607969L;
     @Column(name = "id_non_consommable", nullable = false)
     private Integer idNonConsommable;
@@ -22,7 +22,7 @@ public class CataloguerId implements java.io.Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CataloguerId entity = (CataloguerId) o;
+        NonFoodListId entity = (NonFoodListId) o;
         return Objects.equals(this.idNonConsommable, entity.idNonConsommable) &&
                 Objects.equals(this.idListeCourses, entity.idListeCourses);
     }

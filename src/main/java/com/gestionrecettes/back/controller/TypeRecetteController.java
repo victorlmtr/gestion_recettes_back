@@ -1,12 +1,15 @@
 package com.gestionrecettes.back.controller;
 
 import com.gestionrecettes.back.model.dto.IngredientDetailsDto;
+import com.gestionrecettes.back.model.dto.RegimeRecetteDto;
 import com.gestionrecettes.back.model.dto.TypeRecetteDto;
 import com.gestionrecettes.back.model.entity.TypeRecette;
 import com.gestionrecettes.back.service.IngredientDetailsService;
 import com.gestionrecettes.back.service.TypeRecetteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +39,17 @@ public class TypeRecetteController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(type);
+    }
+
+    @GetMapping("/{id}/icon")
+    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
+        TypeRecetteDto typeRecetteDto = typeRecetteService.getTypeById(id);
+        if (typeRecetteDto == null || typeRecetteDto.getIconeTypeRecette() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(typeRecetteDto.getIconeTypeRecette(), headers, HttpStatus.OK);
     }
 
     @PostMapping

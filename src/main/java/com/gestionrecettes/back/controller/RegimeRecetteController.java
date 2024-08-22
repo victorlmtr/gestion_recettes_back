@@ -1,12 +1,15 @@
 package com.gestionrecettes.back.controller;
 
+import com.gestionrecettes.back.model.dto.CategorieIngredientDto;
 import com.gestionrecettes.back.model.dto.IngredientDetailsDto;
 import com.gestionrecettes.back.model.dto.RegimeRecetteDto;
 import com.gestionrecettes.back.model.entity.RegimeRecette;
 import com.gestionrecettes.back.service.IngredientDetailsService;
 import com.gestionrecettes.back.service.RegimeRecetteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +35,22 @@ public class RegimeRecetteController {
     @GetMapping("/{id}")
     public ResponseEntity<RegimeRecetteDto> getRegimeById(@PathVariable Integer id) {
         RegimeRecetteDto regime = regimeRecetteService.getRegimeById(id);
-        if (regime == null) {
+        if (regime != null) {
+            return ResponseEntity.ok(regime);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(regime);
+    }
+
+    @GetMapping("/{id}/icon")
+    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
+        RegimeRecetteDto regimeRecetteDto = regimeRecetteService.getRegimeById(id);
+        if (regimeRecetteDto == null || regimeRecetteDto.getIconeRegimeRecette() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(regimeRecetteDto.getIconeRegimeRecette(), headers, HttpStatus.OK);
     }
 
     @PostMapping
@@ -47,10 +62,11 @@ public class RegimeRecetteController {
     @PutMapping("/{id}")
     public ResponseEntity<RegimeRecetteDto> updateRegime(@PathVariable Integer id, @RequestBody RegimeRecetteDto regimeRecetteDto) {
         RegimeRecetteDto updatedRegime = regimeRecetteService.updateRegime(id, regimeRecetteDto);
-        if (updatedRegime == null) {
+        if (updatedRegime != null) {
+            return ResponseEntity.ok(updatedRegime);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(updatedRegime);
     }
 
     @DeleteMapping("/{id}")

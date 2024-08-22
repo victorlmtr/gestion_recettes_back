@@ -2,7 +2,6 @@ package com.gestionrecettes.back.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -14,17 +13,16 @@ public class Favoris {
     @EmbeddedId
     private FavorisId id;
 
-    @MapsId("idRecette")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_recette", nullable = false)
-    private Recette idRecette;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_recette", nullable = false, insertable = false, updatable = false)
+    private Recette recette;
 
-    @MapsId("idUtilisateur")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_utilisateur", nullable = false)
-    private Utilisateur idUtilisateur;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "id_utilisateur", nullable = false, insertable = false, updatable = false)
+    private Utilisateur utilisateur;
 
     @Column(name = "date_favori", nullable = false)
     private LocalDate dateFavori;
+
 
 }

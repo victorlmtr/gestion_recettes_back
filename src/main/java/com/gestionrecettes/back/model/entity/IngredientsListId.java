@@ -9,7 +9,7 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Setter
-public class ComposerId implements java.io.Serializable {
+public class IngredientsListId implements java.io.Serializable {
     private static final long serialVersionUID = 6134612271464596039L;
     @Column(name = "id_liste_courses", nullable = false)
     private Integer idListeCourses;
@@ -21,7 +21,7 @@ public class ComposerId implements java.io.Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ComposerId entity = (ComposerId) o;
+        IngredientsListId entity = (IngredientsListId) o;
         return Objects.equals(this.idListeCourses, entity.idListeCourses) &&
                 Objects.equals(this.idIngredient, entity.idIngredient);
     }
