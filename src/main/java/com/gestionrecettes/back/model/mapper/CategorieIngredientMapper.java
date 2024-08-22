@@ -1,9 +1,7 @@
 package com.gestionrecettes.back.model.mapper;
 
 import com.gestionrecettes.back.model.dto.CategorieIngredientDto;
-import com.gestionrecettes.back.model.dto.EtapeDto;
 import com.gestionrecettes.back.model.entity.CategorieIngredient;
-import com.gestionrecettes.back.model.entity.Etape;
 import org.mapstruct.*;
 
 import java.util.List;
