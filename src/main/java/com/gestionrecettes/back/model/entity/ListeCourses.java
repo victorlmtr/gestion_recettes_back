@@ -19,4 +19,11 @@ public class ListeCourses {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur idUtilisateur;
+
+    @OneToMany(mappedBy = "idListeCourses", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<IngredientsList> ingredients = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idListeCourses", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<NonFoodList> nonFoodItems = new LinkedHashSet<>();
+
 }

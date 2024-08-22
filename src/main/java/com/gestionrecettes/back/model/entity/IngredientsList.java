@@ -2,17 +2,15 @@ package com.gestionrecettes.back.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
 import jakarta.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "composer")
-public class Composer {
+public class IngredientsList {
     @EmbeddedId
-    private ComposerId id;
+    private IngredientsListId id;
 
     @MapsId("idListeCourses")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

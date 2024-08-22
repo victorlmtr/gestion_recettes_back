@@ -59,8 +59,4 @@ public class Recette {
     @JsonManagedReference
     private Set<Etape> etapes = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "idRecette")
-    private Set<Favoris> favorites = new LinkedHashSet<>();
-
-
 }
