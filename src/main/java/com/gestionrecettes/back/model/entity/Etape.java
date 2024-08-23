@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.OffsetTime;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 

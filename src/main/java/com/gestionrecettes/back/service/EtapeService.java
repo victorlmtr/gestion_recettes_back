@@ -1,6 +1,7 @@
 package com.gestionrecettes.back.service;
 
 import com.gestionrecettes.back.model.dto.EtapeDto;
+import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
 import com.gestionrecettes.back.model.entity.Etape;
 import com.gestionrecettes.back.model.mapper.EtapeMapper;
 import com.gestionrecettes.back.repository.EtapeRepository;
@@ -18,6 +19,9 @@ public class EtapeService {
 
     @Autowired
     private EtapeMapper etapeMapper;
+
+    @Autowired
+    public IngredientRecetteService ingredientRecetteService;
 
     public List<EtapeDto> getAllEtapes() {
         List<Etape> etapes = etapeRepository.findAll();
@@ -49,5 +53,9 @@ public class EtapeService {
         if (etapeRepository.existsById(id)) {
             etapeRepository.deleteById(id);
         }
+    }
+
+    public List<IngredientRecetteDto> getIngredientsForEtape(Integer idEtape) {
+        return ingredientRecetteService.getIngredientsByEtapeId(idEtape);
     }
 }
