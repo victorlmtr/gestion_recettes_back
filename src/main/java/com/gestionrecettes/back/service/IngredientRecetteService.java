@@ -61,7 +61,10 @@ public class IngredientRecetteService {
                 ))
                 .toList();
     }
-
+    public List<IngredientRecetteDto> getIngredientsByEtapeId(Integer idEtape) {
+        List<IngredientRecette> ingredientRecettes = ingredientRecetteRepository.findByEtapeId(idEtape);
+        return ingredientRecetteMapper.toDtoList(ingredientRecettes);
+    }
     public IngredientRecetteDto getIngredientRecetteById(Integer idIngredient, Integer idEtape, Integer idUniteMesure, Integer idIngredientDetails) {
         IngredientRecetteId id = new IngredientRecetteId();
         id.setIdIngredient(idIngredient);

@@ -1,5 +1,6 @@
 package com.gestionrecettes.back.controller;
 
+import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
 import com.gestionrecettes.back.model.dto.RecetteDto;
 import com.gestionrecettes.back.service.RecetteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,11 @@ public class RecetteController {
     public ResponseEntity<RecetteDto> getRecetteById(@PathVariable Integer id) {
         RecetteDto recette = recetteService.getRecetteById(id);
         return new ResponseEntity<>(recette, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/ingredients")
+    public ResponseEntity<List<IngredientRecetteDto>> getIngredientsForAllSteps(@PathVariable Integer id) {
+        List<IngredientRecetteDto> ingredients = recetteService.getIngredientsForAllSteps(id);
+        return new ResponseEntity<>(ingredients, HttpStatus.OK);
     }
 }

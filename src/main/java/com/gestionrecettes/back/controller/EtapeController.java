@@ -1,6 +1,7 @@
 package com.gestionrecettes.back.controller;
 
 import com.gestionrecettes.back.model.dto.EtapeDto;
+import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
 import com.gestionrecettes.back.service.EtapeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,12 @@ public class EtapeController {
     public ResponseEntity<Void> deleteEtape(@PathVariable Integer id) {
         etapeService.deleteEtape(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}/ingredients")
+    public ResponseEntity<List<IngredientRecetteDto>> getIngredientsForEtape(@PathVariable Integer id) {
+        List<IngredientRecetteDto> ingredients = etapeService.getIngredientsForEtape(id);
+        return new ResponseEntity<>(ingredients, HttpStatus.OK);
     }
 }
 
