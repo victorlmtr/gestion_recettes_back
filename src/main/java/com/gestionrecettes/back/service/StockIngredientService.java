@@ -95,4 +95,19 @@ public class StockIngredientService {
         id.setIdUtilisateur(idUtilisateur);
         stockIngredientRepository.deleteById(id);
     }
+
+    public List<IngredientDto> getIngredientsForUser(Integer idUtilisateur) {
+        List<StockIngredient> stockIngredients = stockIngredientRepository.findByUtilisateurId(idUtilisateur);
+        return stockIngredients.stream()
+                .map(stockIngredient -> new IngredientDto(
+                        stockIngredient.getIngredient().getId(),
+                        stockIngredient.getIngredient().getLibIngredient(),
+                        new CategorieIngredientDto(
+                                stockIngredient.getIngredient().getCategorieIngredient().getId(),
+                                stockIngredient.getIngredient().getCategorieIngredient().getLibCategorieIngredient(),
+                                stockIngredient.getIngredient().getCategorieIngredient().getIconeCategorie()
+                        )
+                ))
+                .collect(Collectors.toList());
+    }
 }

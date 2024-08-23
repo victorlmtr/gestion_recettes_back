@@ -1,6 +1,8 @@
 package com.gestionrecettes.back.controller;
 
+import com.gestionrecettes.back.model.dto.IngredientDto;
 import com.gestionrecettes.back.model.dto.UtilisateurDto;
+import com.gestionrecettes.back.service.StockIngredientService;
 import com.gestionrecettes.back.service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,12 @@ import java.util.List;
 public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
+    private final StockIngredientService stockIngredientService;
 
     @Autowired
-    public UtilisateurController(UtilisateurService utilisateurService) {
+    public UtilisateurController(UtilisateurService utilisateurService, StockIngredientService stockIngredientService) {
         this.utilisateurService = utilisateurService;
+        this.stockIngredientService = stockIngredientService;
     }
 
     @GetMapping
@@ -54,5 +58,11 @@ public class UtilisateurController {
     public ResponseEntity<Void> deleteUtilisateur(@PathVariable Long id) {
         utilisateurService.deleteUtilisateur(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{idUtilisateur}/ingredients")
+    public ResponseEntity<List<IngredientDto>> getAllIngredientsForUser(@PathVariable Integer idUtilisateur) {
+        List<IngredientDto> ingredients = stockIngredientService.getIngredientsForUser(idUtilisateur);
+        return new ResponseEntity<>(ingredients, HttpStatus.OK);
     }
 }
