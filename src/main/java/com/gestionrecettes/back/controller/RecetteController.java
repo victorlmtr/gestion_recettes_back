@@ -82,13 +82,30 @@ public class RecetteController {
         return new ResponseEntity<>(ratingInfo, HttpStatus.OK);
     }
 
-    @GetMapping("/{recipeId}/missing-ingredients/{userId}")
-    public ResponseEntity<MissingIngredientsResponse> getMissingIngredients(@PathVariable Integer recipeId, @PathVariable Integer userId) {
+    @GetMapping("/{recipeId}/missing-ingredients/{userId}/count")
+    public ResponseEntity<MissingIngredientsResponse> getMissingIngredientsCount(@PathVariable Integer recipeId, @PathVariable Integer userId) {
         List<IngredientRecetteDto> recipeIngredients = recetteService.getIngredientsForAllSteps(recipeId);
         List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
         long missingIngredientsCount = recipeIngredients.stream()
                 .filter(ingredient -> !userIngredients.contains(ingredient))
                 .count();
         return new ResponseEntity<>(new MissingIngredientsResponse(missingIngredientsCount), HttpStatus.OK);
+    }
+
+    @GetMapping("/{recipeId}/missing-ingredients/{userId}/")
+    public ResponseEntity<List<IngredientWithPantryStatusDto>> getMissingIngredients(@PathVariable Integer recipeId, @PathVariable Integer userId) {
+        List<IngredientRecetteDto> ingredients = recetteService.getIngredientsForAllSteps(recipeId);
+        List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
+        List<IngredientWithPantryStatusDto> ingredientsWithPantryStatus = ingredients.stream()
+                .map(ingredientRecette -> {
+                    IngredientDto ingredientDto = ingredientRecette.getIdIngredient();
+                    boolean inPantry = userIngredients.stream()
+                            .filter(ui -> ui.getId().equals(ingredientDto.getId()))
+                            .findFirst()
+                            .orElse(null) != null;
+                    return new IngredientWithPantryStatusDto(ingredientDto, inPantry);
+                })
+                .toList();
+        return new ResponseEntity<>(ingredientsWithPantryStatus, HttpStatus.OK);
     }
 }
