@@ -73,7 +73,7 @@ public class CommentaireService {
                         commentaire.getCommentaireAvis(),
                         commentaire.getDateCommentaire()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public CommentaireDto getCommentaireById(Integer idUtilisateur, Integer idRecette) {
@@ -126,6 +126,11 @@ public class CommentaireService {
 
     public CommentaireDto createCommentaire(CommentaireDto commentaireDto) {
         Commentaire commentaire = commentaireMapper.toEntity(commentaireDto);
+        CommentaireId id = new CommentaireId();
+        id.setIdUtilisateur(commentaireDto.getIdUtilisateur().getId());
+        id.setIdRecette(commentaireDto.getIdRecette().getId());
+        commentaire.setId(id);
+
         Commentaire savedCommentaire = commentaireRepository.save(commentaire);
         return commentaireMapper.toDto(savedCommentaire);
     }
@@ -138,8 +143,8 @@ public class CommentaireService {
         commentaire.setCommentaireAvis(commentaireDto.getCommentaireAvis());
         commentaire.setDateCommentaire(commentaireDto.getDateCommentaire());
         commentaire.setNoteAvis(commentaireDto.getNoteAvis());
-        commentaire = commentaireRepository.save(commentaire);
-        return commentaireMapper.toDto(commentaire);
+        Commentaire updatedCommentaire = commentaireRepository.save(commentaire);
+        return commentaireMapper.toDto(updatedCommentaire);
     }
 
     public void deleteCommentaire(Integer idUtilisateur, Integer idRecette) {
@@ -147,5 +152,24 @@ public class CommentaireService {
         id.setIdUtilisateur(idUtilisateur);
         id.setIdRecette(idRecette);
         commentaireRepository.deleteById(id);
+    }
+    public List<CommentaireDto> getCommentsByRecetteId(Integer recetteId) {
+        List<Commentaire> commentaires = commentaireRepository.findByRecetteId(recetteId);
+        return commentaires.stream()
+                .map(commentaireMapper::toDto)
+                .toList();
+    }
+
+    public RatingInfoDto getRatingInfoByRecetteId(Integer recetteId) {
+        List<Commentaire> commentaires = commentaireRepository.findByRecetteId(recetteId);
+
+        Double averageRating = commentaires.stream()
+                .mapToDouble(Commentaire::getNoteAvis)
+                .average()
+                .orElse(0.0);
+
+        Long totalComments = (long) commentaires.size();
+
+        return new RatingInfoDto(averageRating, totalComments);
     }
 }

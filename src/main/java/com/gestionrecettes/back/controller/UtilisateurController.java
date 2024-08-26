@@ -35,8 +35,13 @@ public class UtilisateurController {
         UtilisateurDto utilisateur = utilisateurService.getUtilisateurById(id);
         return utilisateur != null ? new ResponseEntity<>(utilisateur, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @GetMapping("/{id}/username")
+    public ResponseEntity<String> getUsernameById(@PathVariable Long id) {
+        String username = utilisateurService.getUsernameById(id);
+        return username != null ? new ResponseEntity<>(username, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
-    @GetMapping("/nom/{nomUtilisateur}")
+    @GetMapping("/username/{nomUtilisateur}")
     public ResponseEntity<UtilisateurDto> getUtilisateurByNomUtilisateur(@PathVariable String nomUtilisateur) {
         UtilisateurDto utilisateur = utilisateurService.getUtilisateurByNomUtilisateur(nomUtilisateur);
         return utilisateur != null ? new ResponseEntity<>(utilisateur, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
