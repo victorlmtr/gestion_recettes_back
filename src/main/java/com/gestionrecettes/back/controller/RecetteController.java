@@ -1,14 +1,16 @@
 package com.gestionrecettes.back.controller;
 
 import com.gestionrecettes.back.model.dto.*;
-import com.gestionrecettes.back.service.CommentaireService;
-import com.gestionrecettes.back.service.RecetteService;
+import com.gestionrecettes.back.model.entity.Ingredient;
+import com.gestionrecettes.back.model.entity.IngredientRecette;
+import com.gestionrecettes.back.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -17,12 +19,21 @@ public class RecetteController {
 
     private final RecetteService recetteService;
     private final CommentaireService commentaireService;
+    private final IngredientRecetteService ingredientRecetteService;
+    private final UtilisateurService utilisateurService;
+    private final StockIngredientService stockIngredientService;
 
     @Autowired
-    public RecetteController(RecetteService recetteService, CommentaireService commentaireService) {
+    public RecetteController(RecetteService recetteService, CommentaireService commentaireService,
+                             IngredientRecetteService ingredientRecetteService,
+                             UtilisateurService utilisateurService, StockIngredientService stockIngredientService) {
         this.recetteService = recetteService;
         this.commentaireService = commentaireService;
+        this.ingredientRecetteService = ingredientRecetteService;
+        this.utilisateurService = utilisateurService;
+        this.stockIngredientService = stockIngredientService;
     }
+
     @PostMapping
     public ResponseEntity<RecetteDto> createRecette(@RequestBody RecetteDto recetteDto) {
         RecetteDto createdRecette = recetteService.createRecette(recetteDto);
@@ -71,4 +82,13 @@ public class RecetteController {
         return new ResponseEntity<>(ratingInfo, HttpStatus.OK);
     }
 
+    @GetMapping("/{recipeId}/missing-ingredients/{userId}")
+    public ResponseEntity<MissingIngredientsResponse> getMissingIngredients(@PathVariable Integer recipeId, @PathVariable Integer userId) {
+        List<IngredientRecetteDto> recipeIngredients = recetteService.getIngredientsForAllSteps(recipeId);
+        List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
+        long missingIngredientsCount = recipeIngredients.stream()
+                .filter(ingredient -> !userIngredients.contains(ingredient))
+                .count();
+        return new ResponseEntity<>(new MissingIngredientsResponse(missingIngredientsCount), HttpStatus.OK);
+    }
 }
