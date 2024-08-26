@@ -7,8 +7,12 @@ import org.mapstruct.*;
 import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {UtilisateurMapper.class, RecetteMapper.class})
 public interface CommentaireMapper {
-    Commentaire toEntity(CommentaireDto commentaireDto);
 
+    @Mapping(target = "id.idUtilisateur", source = "idUtilisateur.id")
+    @Mapping(target = "id.idRecette", source = "idRecette.id")
+    Commentaire toEntity(CommentaireDto commentaireDto);
+    @Mapping(source = "id.idUtilisateur", target = "idUtilisateur.id")
+    @Mapping(source = "id.idRecette", target = "idRecette.id")
     CommentaireDto toDto(Commentaire commentaire);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

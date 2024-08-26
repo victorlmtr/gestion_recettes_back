@@ -1,7 +1,7 @@
 package com.gestionrecettes.back.controller;
 
-import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
-import com.gestionrecettes.back.model.dto.RecetteDto;
+import com.gestionrecettes.back.model.dto.*;
+import com.gestionrecettes.back.service.CommentaireService;
 import com.gestionrecettes.back.service.RecetteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +14,15 @@ import java.util.List;
 @RequestMapping("/api/recipes")
 public class RecetteController {
 
+
     private final RecetteService recetteService;
+    private final CommentaireService commentaireService;
 
     @Autowired
-    public RecetteController(RecetteService recetteService) {
+    public RecetteController(RecetteService recetteService, CommentaireService commentaireService) {
         this.recetteService = recetteService;
+        this.commentaireService = commentaireService;
     }
-
     @PostMapping
     public ResponseEntity<RecetteDto> createRecette(@RequestBody RecetteDto recetteDto) {
         RecetteDto createdRecette = recetteService.createRecette(recetteDto);
@@ -56,4 +58,17 @@ public class RecetteController {
         List<IngredientRecetteDto> ingredients = recetteService.getIngredientsForAllSteps(id);
         return new ResponseEntity<>(ingredients, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<CommentaireDto>> getCommentsForRecipe(@PathVariable Integer id) {
+        List<CommentaireDto> comments = commentaireService.getCommentsByRecetteId(id);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/rating-info")
+    public ResponseEntity<RatingInfoDto> getRatingInfoForRecipe(@PathVariable Integer id) {
+        RatingInfoDto ratingInfo = commentaireService.getRatingInfoByRecetteId(id);
+        return new ResponseEntity<>(ratingInfo, HttpStatus.OK);
+    }
+
 }

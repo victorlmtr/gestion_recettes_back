@@ -1,6 +1,8 @@
 package com.gestionrecettes.back.service;
 
+import com.gestionrecettes.back.model.dto.IngredientDto;
 import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
+import com.gestionrecettes.back.model.dto.IngredientRecetteStatusDto;
 import com.gestionrecettes.back.model.dto.RecetteDto;
 import com.gestionrecettes.back.model.entity.Etape;
 import com.gestionrecettes.back.model.entity.IngredientRecette;
@@ -8,6 +10,7 @@ import com.gestionrecettes.back.model.entity.Recette;
 import com.gestionrecettes.back.model.mapper.IngredientRecetteMapper;
 import com.gestionrecettes.back.model.mapper.RecetteMapper;
 import com.gestionrecettes.back.repository.RecetteRepository;
+import com.gestionrecettes.back.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +24,14 @@ public class RecetteService {
     private final RecetteRepository recetteRepository;
     private final RecetteMapper recetteMapper;
     private final IngredientRecetteMapper ingredientRecetteMapper;
+    private final UtilisateurRepository utilisateurRepository;
 
     @Autowired
-    public RecetteService(RecetteRepository recetteRepository, RecetteMapper recetteMapper, IngredientRecetteMapper ingredientRecetteMapper) {
+    public RecetteService(RecetteRepository recetteRepository, RecetteMapper recetteMapper, IngredientRecetteMapper ingredientRecetteMapper, UtilisateurRepository utilisateurRepository) {
         this.recetteRepository = recetteRepository;
         this.recetteMapper = recetteMapper;
         this.ingredientRecetteMapper = ingredientRecetteMapper;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Transactional
@@ -62,15 +67,13 @@ public class RecetteService {
     @Transactional
     public List<IngredientRecetteDto> getIngredientsForAllSteps(Integer recetteId) {
         Recette recette = recetteRepository.findById(recetteId)
-                .orElseThrow(() -> new RuntimeException("Recette not found"));
-
-        // Fetch all steps for the recette
-        Set<Etape> etapes = recette.getEtapes();
-
-        // Extract all ingredients from each step
-        return etapes.stream()
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+        return recette.getEtapes().stream()
                 .flatMap(etape -> etape.getIngredientRecettes().stream())
                 .map(ingredientRecetteMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+
+
 }

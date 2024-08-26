@@ -35,6 +35,12 @@ public class UtilisateurService {
         return utilisateur.map(utilisateurMapper::toDto).orElse(null);
     }
 
+    public String getUsernameById(Long id) {
+        return utilisateurRepository.findById(id)
+                .map(Utilisateur::getNomUtilisateur)
+                .orElse(null);
+    }
+
     public UtilisateurDto createUtilisateur(UtilisateurDto utilisateurDto) {
         Utilisateur utilisateur = utilisateurMapper.toEntity(utilisateurDto);
         Utilisateur savedUtilisateur = utilisateurRepository.save(utilisateur);
