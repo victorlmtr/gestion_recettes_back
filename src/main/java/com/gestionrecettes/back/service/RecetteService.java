@@ -2,7 +2,6 @@ package com.gestionrecettes.back.service;
 
 import com.gestionrecettes.back.model.dto.IngredientDto;
 import com.gestionrecettes.back.model.dto.IngredientRecetteDto;
-import com.gestionrecettes.back.model.dto.IngredientRecetteStatusDto;
 import com.gestionrecettes.back.model.dto.RecetteDto;
 import com.gestionrecettes.back.model.entity.Etape;
 import com.gestionrecettes.back.model.entity.IngredientRecette;
@@ -71,7 +70,7 @@ public class RecetteService {
         return recette.getEtapes().stream()
                 .flatMap(etape -> etape.getIngredientRecettes().stream())
                 .map(ingredientRecetteMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 

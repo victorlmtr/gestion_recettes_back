@@ -108,6 +108,6 @@ public class StockIngredientService {
                                 stockIngredient.getIngredient().getCategorieIngredient().getIconeCategorie()
                         )
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 }
