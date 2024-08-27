@@ -19,5 +19,4 @@ public class DietsList {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_regime_recette", nullable = false, insertable = false, updatable = false)
     private RegimeRecette regimeRecette;
-
 }

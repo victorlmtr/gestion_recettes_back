@@ -22,4 +22,5 @@ public class RegimeRecette {
 
     @Column(name = "icone_regime_recette")
     private byte[] iconeRegimeRecette;
+
 }

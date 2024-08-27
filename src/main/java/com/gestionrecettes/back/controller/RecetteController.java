@@ -3,6 +3,8 @@ package com.gestionrecettes.back.controller;
 import com.gestionrecettes.back.model.dto.*;
 import com.gestionrecettes.back.model.entity.Ingredient;
 import com.gestionrecettes.back.model.entity.IngredientRecette;
+import com.gestionrecettes.back.model.entity.Recette;
+import com.gestionrecettes.back.model.mapper.RecetteMapper;
 import com.gestionrecettes.back.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,16 +24,21 @@ public class RecetteController {
     private final IngredientRecetteService ingredientRecetteService;
     private final UtilisateurService utilisateurService;
     private final StockIngredientService stockIngredientService;
+    private final DietsListService dietsListService;
+    private final RecetteMapper recetteMapper;
 
     @Autowired
     public RecetteController(RecetteService recetteService, CommentaireService commentaireService,
                              IngredientRecetteService ingredientRecetteService,
-                             UtilisateurService utilisateurService, StockIngredientService stockIngredientService) {
+                             UtilisateurService utilisateurService, StockIngredientService stockIngredientService,
+                             DietsListService dietsListService, RecetteMapper recetteMapper) {
         this.recetteService = recetteService;
         this.commentaireService = commentaireService;
         this.ingredientRecetteService = ingredientRecetteService;
         this.utilisateurService = utilisateurService;
         this.stockIngredientService = stockIngredientService;
+        this.dietsListService = dietsListService;
+        this.recetteMapper = recetteMapper;
     }
 
     @PostMapping
@@ -108,4 +115,47 @@ public class RecetteController {
                 .toList();
         return new ResponseEntity<>(ingredientsWithPantryStatus, HttpStatus.OK);
     }
+
+    @GetMapping("/recent")
+    public ResponseEntity<List<RecetteDto>> getFiveMostRecentRecipes() {
+        List<RecetteDto> recentRecipes = recetteService.getFiveMostRecentRecipes();
+        return new ResponseEntity<>(recentRecipes, HttpStatus.OK);
+    }
+
+    @GetMapping("/country/{countryId}")
+    public ResponseEntity<List<RecetteDto>> getRecettesByCountry(@PathVariable Integer countryId) {
+        List<RecetteDto> recettes = recetteService.getRecipesByCountry(countryId);
+        return new ResponseEntity<>(recettes, HttpStatus.OK);
+    }
+
+    @GetMapping("/continent/{continentId}")
+    public ResponseEntity<List<RecetteDto>> getRecettesByContinent(@PathVariable Integer continentId) {
+        List<RecetteDto> recettes = recetteService.getRecipesByContinent(continentId);
+        return new ResponseEntity<>(recettes, HttpStatus.OK);
+    }
+
+    @GetMapping("/type/{idTypeRecette}")
+    public ResponseEntity<List<RecetteDto>> getRecettesByType(@PathVariable Integer idTypeRecette) {
+        List<RecetteDto> recettes = recetteService.getRecipesByType(idTypeRecette);
+        return new ResponseEntity<>(recettes, HttpStatus.OK);
+    }
+
+    @GetMapping("/diet/{idRegimeRecette}")
+    public ResponseEntity<List<RecetteDto>> getRecettesByRegime(@PathVariable Integer idRegimeRecette) {
+        List<RecetteDto> recettes = recetteService.getRecipesByRegime(idRegimeRecette);
+        return new ResponseEntity<>(recettes, HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<RecetteDto>> getRecettesByFilters(
+            @RequestParam(required = false) Integer idTypeRecette,
+            @RequestParam(required = false) Integer idRegimeRecette,
+            @RequestParam(required = false) Integer difficulteRecette,
+            @RequestParam(required = false) Integer idPays,
+            @RequestParam(required = false) Integer idContinent) {
+
+        List<RecetteDto> recettes = recetteService.getRecipesByFilters(idTypeRecette, idRegimeRecette, difficulteRecette, idPays, idContinent);
+        return new ResponseEntity<>(recettes, HttpStatus.OK);
+    }
+
 }

@@ -3,9 +3,10 @@ package com.gestionrecettes.back.service;
 import com.gestionrecettes.back.model.dto.*;
 import com.gestionrecettes.back.model.entity.DietsList;
 import com.gestionrecettes.back.model.entity.DietsListId;
+import com.gestionrecettes.back.model.entity.RegimeRecette;
 import com.gestionrecettes.back.model.mapper.DietsListMapper;
-import com.gestionrecettes.back.model.mapper.RegimeRecetteMapperImpl;
-import com.gestionrecettes.back.model.mapper.EtapeMapperImpl;
+import com.gestionrecettes.back.model.mapper.RegimeRecetteMapper;
+import com.gestionrecettes.back.model.mapper.EtapeMapper;
 import com.gestionrecettes.back.repository.DietsListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,11 @@ public class DietsListService {
 
     private final DietsListRepository dietsListRepository;
     private final DietsListMapper dietsListMapper;
-    private final RegimeRecetteMapperImpl regimeRecetteMapper;
-    private final EtapeMapperImpl etapeMapper;
+    private final RegimeRecetteMapper regimeRecetteMapper;
+    private final EtapeMapper etapeMapper;
 
     @Autowired
-    public DietsListService(DietsListRepository dietsListRepository, DietsListMapper dietsListMapper, RegimeRecetteMapperImpl regimeRecetteMapper, EtapeMapperImpl etapeMapper) {
+    public DietsListService(DietsListRepository dietsListRepository, DietsListMapper dietsListMapper, RegimeRecetteMapper regimeRecetteMapper, EtapeMapper etapeMapper) {
         this.dietsListRepository = dietsListRepository;
         this.dietsListMapper = dietsListMapper;
         this.regimeRecetteMapper = regimeRecetteMapper;
@@ -91,4 +92,7 @@ public class DietsListService {
         id.setIdRegimeRecette(idRegimeRecette);
         dietsListRepository.deleteById(id);
     }
+
+
+
 }
