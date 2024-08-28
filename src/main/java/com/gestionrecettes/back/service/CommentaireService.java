@@ -1,14 +1,16 @@
 package com.gestionrecettes.back.service;
 
-import com.gestionrecettes.back.model.dto.*;
+import com.gestionrecettes.back.model.dto.CommentaireDto;
+import com.gestionrecettes.back.model.dto.RatingInfoDto;
 import com.gestionrecettes.back.model.entity.Commentaire;
 import com.gestionrecettes.back.model.entity.CommentaireId;
 import com.gestionrecettes.back.model.mapper.CommentaireMapper;
-import com.gestionrecettes.back.model.mapper.RegimeRecetteMapperImpl;
-import com.gestionrecettes.back.model.mapper.EtapeMapperImpl;
+import com.gestionrecettes.back.model.mapper.EtapeMapper;
+import com.gestionrecettes.back.model.mapper.RegimeRecetteMapper;
 import com.gestionrecettes.back.repository.CommentaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,11 +20,11 @@ public class CommentaireService {
 
     private final CommentaireRepository commentaireRepository;
     private final CommentaireMapper commentaireMapper;
-    private final RegimeRecetteMapperImpl regimeRecetteMapper;
-    private final EtapeMapperImpl etapeMapper;
+    private final RegimeRecetteMapper regimeRecetteMapper;
+    private final EtapeMapper etapeMapper;
 
     @Autowired
-    public CommentaireService(CommentaireRepository commentaireRepository, CommentaireMapper commentaireMapper, RegimeRecetteMapperImpl regimeRecetteMapper, EtapeMapperImpl etapeMapper) {
+    public CommentaireService(CommentaireRepository commentaireRepository, CommentaireMapper commentaireMapper, RegimeRecetteMapper regimeRecetteMapper, EtapeMapper etapeMapper) {
         this.commentaireRepository = commentaireRepository;
         this.commentaireMapper = commentaireMapper;
         this.regimeRecetteMapper = regimeRecetteMapper;
@@ -32,47 +34,7 @@ public class CommentaireService {
     public List<CommentaireDto> getAllCommentaires() {
         List<Commentaire> commentaires = commentaireRepository.findAll();
         return commentaires.stream()
-                .map(commentaire -> new CommentaireDto(
-                        new UtilisateurDto(
-                                commentaire.getUtilisateur().getId(),
-                                commentaire.getUtilisateur().getNomUtilisateur(),
-                                commentaire.getUtilisateur().getEmailUtilisateur(),
-                                commentaire.getUtilisateur().getMdpUtilisateur(),
-                                commentaire.getUtilisateur().getDateCreationUtilisateur()
-                        ),
-                        new RecetteDto(
-                                commentaire.getRecette().getId(),
-                                commentaire.getRecette().getLibRecette(),
-                                commentaire.getRecette().getDescriptionRecette(),
-                                commentaire.getRecette().getDifficulteRecette(),
-                                commentaire.getRecette().getNombrePortion(),
-                                commentaire.getRecette().getRemarqueRecette(),
-                                commentaire.getRecette().getDatePublicationRecette(),
-                                commentaire.getRecette().getImageRecette(),
-                                new PaysDto(
-                                        commentaire.getRecette().getIdPays().getId(),
-                                        commentaire.getRecette().getIdPays().getLibPays(),
-                                        new ContinentDto(
-                                                commentaire.getRecette().getIdPays().getIdContinent().getId(),
-                                                commentaire.getRecette().getIdPays().getIdContinent().getLibContinent()
-                                        )
-                                ),
-                                new TypeRecetteDto(
-                                        commentaire.getRecette().getIdTypeRecette().getId(),
-                                        commentaire.getRecette().getIdTypeRecette().getLibTypeRecette(),
-                                        commentaire.getRecette().getIdTypeRecette().getIconeTypeRecette()
-                                ),
-                                commentaire.getRecette().getRegimeRecettes().stream()
-                                        .map(regimeRecetteMapper::toDto)
-                                        .collect(Collectors.toSet()),
-                                commentaire.getRecette().getEtapes().stream()
-                                        .map(etapeMapper::toDto)
-                                        .collect(Collectors.toSet())
-                        ),
-                        commentaire.getNoteAvis(),
-                        commentaire.getCommentaireAvis(),
-                        commentaire.getDateCommentaire()
-                ))
+                .map(commentaireMapper::toDto)
                 .toList();
     }
 
@@ -80,50 +42,12 @@ public class CommentaireService {
         CommentaireId id = new CommentaireId();
         id.setIdUtilisateur(idUtilisateur);
         id.setIdRecette(idRecette);
-        Commentaire commentaire = commentaireRepository.findById(id).orElseThrow();
-        return new CommentaireDto(
-                new UtilisateurDto(
-                        commentaire.getUtilisateur().getId(),
-                        commentaire.getUtilisateur().getNomUtilisateur(),
-                        commentaire.getUtilisateur().getEmailUtilisateur(),
-                        commentaire.getUtilisateur().getMdpUtilisateur(),
-                        commentaire.getUtilisateur().getDateCreationUtilisateur()
-                ),
-                new RecetteDto(
-                        commentaire.getRecette().getId(),
-                        commentaire.getRecette().getLibRecette(),
-                        commentaire.getRecette().getDescriptionRecette(),
-                        commentaire.getRecette().getDifficulteRecette(),
-                        commentaire.getRecette().getNombrePortion(),
-                        commentaire.getRecette().getRemarqueRecette(),
-                        commentaire.getRecette().getDatePublicationRecette(),
-                        commentaire.getRecette().getImageRecette(),
-                        new PaysDto(
-                                commentaire.getRecette().getIdPays().getId(),
-                                commentaire.getRecette().getIdPays().getLibPays(),
-                                new ContinentDto(
-                                        commentaire.getRecette().getIdPays().getIdContinent().getId(),
-                                        commentaire.getRecette().getIdPays().getIdContinent().getLibContinent()
-                                )
-                        ),
-                        new TypeRecetteDto(
-                                commentaire.getRecette().getIdTypeRecette().getId(),
-                                commentaire.getRecette().getIdTypeRecette().getLibTypeRecette(),
-                                commentaire.getRecette().getIdTypeRecette().getIconeTypeRecette()
-                        ),
-                        commentaire.getRecette().getRegimeRecettes().stream()
-                                .map(regimeRecetteMapper::toDto)
-                                .collect(Collectors.toSet()),
-                        commentaire.getRecette().getEtapes().stream()
-                                .map(etapeMapper::toDto)
-                                .collect(Collectors.toSet())
-                ),
-                commentaire.getNoteAvis(),
-                commentaire.getCommentaireAvis(),
-                commentaire.getDateCommentaire()
-        );
+        Commentaire commentaire = commentaireRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+        return commentaireMapper.toDto(commentaire);
     }
 
+    @Transactional
     public CommentaireDto createCommentaire(CommentaireDto commentaireDto) {
         Commentaire commentaire = commentaireMapper.toEntity(commentaireDto);
         CommentaireId id = new CommentaireId();
@@ -135,24 +59,31 @@ public class CommentaireService {
         return commentaireMapper.toDto(savedCommentaire);
     }
 
+    @Transactional
     public CommentaireDto updateCommentaire(Integer idUtilisateur, Integer idRecette, CommentaireDto commentaireDto) {
         CommentaireId id = new CommentaireId();
         id.setIdUtilisateur(idUtilisateur);
         id.setIdRecette(idRecette);
-        Commentaire commentaire = commentaireRepository.findById(id).orElseThrow();
+        Commentaire commentaire = commentaireRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
+
+        // Updating the comment fields from DTO
         commentaire.setCommentaireAvis(commentaireDto.getCommentaireAvis());
         commentaire.setDateCommentaire(commentaireDto.getDateCommentaire());
         commentaire.setNoteAvis(commentaireDto.getNoteAvis());
+
         Commentaire updatedCommentaire = commentaireRepository.save(commentaire);
         return commentaireMapper.toDto(updatedCommentaire);
     }
 
+    @Transactional
     public void deleteCommentaire(Integer idUtilisateur, Integer idRecette) {
         CommentaireId id = new CommentaireId();
         id.setIdUtilisateur(idUtilisateur);
         id.setIdRecette(idRecette);
         commentaireRepository.deleteById(id);
     }
+
     public List<CommentaireDto> getCommentsByRecetteId(Integer recetteId) {
         List<Commentaire> commentaires = commentaireRepository.findByRecetteId(recetteId);
         return commentaires.stream()
