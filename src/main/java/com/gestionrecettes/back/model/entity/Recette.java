@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.OffsetTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -59,4 +60,18 @@ public class Recette {
     @JsonManagedReference
     private Set<Etape> etapes = new LinkedHashSet<>();
 
+    @Transient // for calculated fields
+    private Long totalTime;
+
+    public Long getTotalTime() {
+        if (etapes != null) {
+            return etapes.stream()
+                    .mapToLong(etape -> {
+                        OffsetTime dureeEtape = etape.getDureeEtape();
+                        return dureeEtape.getHour() * 60L + dureeEtape.getMinute();
+                    })
+                    .sum();
+        }
+        return 0L;
+    }
 }

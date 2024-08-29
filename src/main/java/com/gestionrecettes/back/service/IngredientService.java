@@ -53,4 +53,9 @@ public class IngredientService {
             ingredientRepository.deleteById(id);
         }
     }
+
+    public List<IngredientDto> getIngredientsByCategoryId(Integer idCategorie) {
+        List<Ingredient> ingredients = ingredientRepository.findByCategorieIngredient_Id(idCategorie);
+        return ingredientMapper.toDtoList(ingredients);
+    }
 }

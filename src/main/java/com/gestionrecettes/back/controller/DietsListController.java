@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/diets-lists")
+@RequestMapping("/api/user-diets")
 public class DietsListController {
     @Autowired
     private DietsListService dietsListService;

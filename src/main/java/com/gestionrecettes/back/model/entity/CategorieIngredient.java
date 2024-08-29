@@ -24,6 +24,6 @@ public class CategorieIngredient {
     private byte[] iconeCategorie;
 
     @OneToMany(mappedBy = "categorieIngredient", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // Manage serialization of ingredients
+    @JsonManagedReference
     private Set<Ingredient> ingredients = new LinkedHashSet<>();
 }
