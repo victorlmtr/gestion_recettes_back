@@ -57,4 +57,10 @@ public class IngredientController {
         ingredientService.deleteIngredient(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/category/{idCategorie}")
+    public ResponseEntity<List<IngredientDto>> getIngredientsByCategory(@PathVariable Integer idCategorie) {
+        List<IngredientDto> ingredients = ingredientService.getIngredientsByCategoryId(idCategorie);
+        return ResponseEntity.ok(ingredients);
+    }
 }
