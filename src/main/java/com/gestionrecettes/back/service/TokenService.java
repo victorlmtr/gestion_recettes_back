@@ -1,7 +1,9 @@
 package com.gestionrecettes.back.service;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,21 @@ public class TokenService {
 
     public boolean verifyPassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public String extractUsernameFromToken(String token) {
+        try {
+            // Initialize JWT verifier with the secret key
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET_KEY)).build();
+
+            // Decode the JWT token
+            DecodedJWT decodedJWT = verifier.verify(token);
+
+            // Extract the subject from the token
+            return decodedJWT.getSubject();
+        } catch (Exception e) {
+            // Handle exceptions such as token expiration or invalid token
+            return null;
+        }
     }
 }

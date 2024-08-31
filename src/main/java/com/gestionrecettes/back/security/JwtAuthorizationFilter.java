@@ -47,3 +47,4 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
     }
 }
+

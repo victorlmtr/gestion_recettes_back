@@ -51,11 +51,12 @@ public class AuthController {
         String refreshToken = tokenService.generateRefreshToken(username);
 
         // Prepare response
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("access-token", accessToken);
-        tokens.put("refresh-token", refreshToken);
+        Map<String, Object> response = new HashMap<>();
+        response.put("access-token", accessToken);
+        response.put("refresh-token", refreshToken);
+        response.put("user", new UtilisateurDto(utilisateur.getId(), utilisateur.getNomUtilisateur(), utilisateur.getEmailUtilisateur(), utilisateur.getMdpUtilisateur(), utilisateur.getDateCreationUtilisateur()));
 
-        return ResponseEntity.ok(tokens);
+        return ResponseEntity.ok(response);
     }
 
 
@@ -94,11 +95,11 @@ public class AuthController {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         String username = authentication.getName();
         UtilisateurDto utilisateurDto = utilisateurService.getUtilisateurByNomUtilisateur(username);
         return utilisateurDto != null ? ResponseEntity.ok(utilisateurDto) : ResponseEntity.notFound().build();
     }
+
 }
 
 

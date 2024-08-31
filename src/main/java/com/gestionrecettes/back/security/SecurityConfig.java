@@ -42,7 +42,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/api/**").permitAll()
+                        .requestMatchers("/api/login", "/api/**").permitAll()
+                        .requestMatchers("/api/user-details").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class))))
@@ -64,7 +65,6 @@ public class SecurityConfig {
             return new User(utilisateur.getNomUtilisateur(), utilisateur.getMdpUtilisateur(), authorities);
         };
     }
-
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
