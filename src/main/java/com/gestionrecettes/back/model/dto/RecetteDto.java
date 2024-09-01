@@ -2,8 +2,8 @@ package com.gestionrecettes.back.model.dto;
 
 import lombok.Builder;
 import lombok.Value;
-
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -25,5 +25,5 @@ public class RecetteDto implements Serializable {
     TypeRecetteDto idTypeRecette;
     Set<RegimeRecetteDto> regimeRecettes;
     Set<EtapeDto> etapes;
-    Long totalTime;
+    Duration totalTime;
 }
