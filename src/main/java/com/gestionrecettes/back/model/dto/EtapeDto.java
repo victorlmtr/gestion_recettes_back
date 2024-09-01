@@ -1,11 +1,9 @@
 package com.gestionrecettes.back.model.dto;
 
-import com.gestionrecettes.back.model.entity.Etape;
 import lombok.Value;
-
 import java.io.Serializable;
-import java.time.OffsetTime;
-import java.util.Set;
+import java.time.Duration;
+
 
 /**
  * DTO for {@link com.gestionrecettes.back.model.entity.Etape}
@@ -13,7 +11,7 @@ import java.util.Set;
 @Value
 public class EtapeDto implements Serializable {
     Integer id;
-    OffsetTime dureeEtape;
+    Duration dureeEtape;
     String instructionsEtape;
     byte[] imageEtape;
     TypeEtapeDto idTypeEtape;

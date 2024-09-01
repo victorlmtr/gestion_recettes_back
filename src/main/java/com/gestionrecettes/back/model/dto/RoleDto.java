@@ -13,10 +13,7 @@ public class RoleDto implements Serializable {
     String libRole;
     
     public RoleDto(Integer id, String libRole) {
-
         this.id = id;
-
         this.libRole = libRole;
-
     }
 }

@@ -2,11 +2,12 @@ package com.gestionrecettes.back.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.gestionrecettes.back.model.entity.DurationConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import jakarta.persistence.*;
-import java.time.OffsetTime;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -21,7 +22,8 @@ public class Etape {
     private Integer id;
 
     @Column(name = "duree_etape", nullable = false)
-    private OffsetTime dureeEtape;
+    @Convert(converter = DurationConverter.class) // Add this line to use the converter
+    private Duration dureeEtape;
 
     @Column(name = "instructions_etape", nullable = false, length = 2000)
     private String instructionsEtape;
@@ -41,5 +43,4 @@ public class Etape {
 
     @OneToMany(mappedBy = "id.idEtape")
     private Set<IngredientRecette> ingredientRecettes = new LinkedHashSet<>();
-
 }

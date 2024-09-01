@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -99,7 +97,7 @@ public class RecetteController {
         return new ResponseEntity<>(new MissingIngredientsResponse(missingIngredientsCount), HttpStatus.OK);
     }
 
-    @GetMapping("/{recipeId}/missing-ingredients/{userId}/")
+    @GetMapping("/{recipeId}/missing-ingredients/{userId}")
     public ResponseEntity<List<IngredientWithPantryStatusDto>> getMissingIngredients(@PathVariable Integer recipeId, @PathVariable Integer userId) {
         List<IngredientRecetteDto> ingredients = recetteService.getIngredientsForAllSteps(recipeId);
         List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);

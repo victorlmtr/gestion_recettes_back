@@ -1,10 +1,11 @@
 package com.gestionrecettes.back.model.mapper;
 
 import com.gestionrecettes.back.model.dto.RecetteDto;
+import com.gestionrecettes.back.model.entity.Etape;
 import com.gestionrecettes.back.model.entity.Recette;
 import org.mapstruct.*;
 
-import java.time.OffsetTime;
+import java.time.Duration;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING, uses = {PaysMapper.class, TypeRecetteMapper.class, RegimeRecetteMapper.class, EtapeMapper.class})
@@ -20,13 +21,13 @@ public interface RecetteMapper {
 
     @AfterMapping
     default void calculateTotalTime(Recette recette, @MappingTarget RecetteDto.RecetteDtoBuilder recetteDtoBuilder) {
-        long totalTime = recette.getEtapes().stream()
-                .mapToLong(etape -> {
-                    OffsetTime dureeEtape = etape.getDureeEtape();
-                    return dureeEtape.getHour() * 60L + dureeEtape.getMinute();
-                })
-                .sum();
-        recetteDtoBuilder.totalTime(totalTime); // Set the calculated total time using the builder
+        // Calculate total time as Duration
+        Duration totalTime = recette.getEtapes().stream()
+                .map(Etape::getDureeEtape)  // Get Duration from each Etape
+                .reduce(Duration.ZERO, Duration::plus);  // Sum all Durations
+
+        // Set the calculated total time using the builder
+        recetteDtoBuilder.totalTime(totalTime);
     }
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
