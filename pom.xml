@@ -8,11 +8,11 @@
 		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.gestionrecettes</groupId>
-	<artifactId>back</artifactId>
+	<groupId>xyz.victorl</groupId>
+	<artifactId>scrontch-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>back</name>
-	<description>Back du projet fil rouge : Gestion de courses et de recettes</description>
+	<name>scrontch-backend</name>
+	<description>Backend du projet fil rouge Scrontch, gestion de courses et de recettes</description>
 	<properties>
 		<java.version>21</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
