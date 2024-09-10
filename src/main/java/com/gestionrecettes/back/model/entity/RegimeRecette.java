@@ -14,6 +14,7 @@ import java.util.Set;
 @Table(name = "regime_recette")
 public class RegimeRecette {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_regime_recette", nullable = false)
     private Integer id;
 

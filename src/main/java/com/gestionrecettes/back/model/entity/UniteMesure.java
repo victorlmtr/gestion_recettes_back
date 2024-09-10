@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "unite_mesure")
 public class UniteMesure {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_unite_mesure", nullable = false)
     private Integer id;
 
