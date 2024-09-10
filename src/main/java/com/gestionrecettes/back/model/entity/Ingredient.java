@@ -14,6 +14,7 @@ import java.util.Set;
 @Table(name = "ingredient")
 public class Ingredient {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ingredient", nullable = false)
     private Integer id;
 
