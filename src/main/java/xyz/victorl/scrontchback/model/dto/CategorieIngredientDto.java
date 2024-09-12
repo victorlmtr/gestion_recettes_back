@@ -12,5 +12,5 @@ import java.io.Serializable;
 public class CategorieIngredientDto implements Serializable {
     Integer id;
     String libCategorieIngredient;
-    byte[] iconeCategorie;
+    String iconeCategorie;
 }
