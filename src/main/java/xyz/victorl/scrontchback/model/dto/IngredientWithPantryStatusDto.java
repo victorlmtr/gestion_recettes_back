@@ -6,12 +6,12 @@ import lombok.Data;
 
 public class IngredientWithPantryStatusDto {
     private IngredientDto ingredient;
-    private IngredientDetailsDto ingredientDetails;
+    private IngredientRecetteDto ingredientRecette;
     private boolean inPantry;
 
-    public IngredientWithPantryStatusDto(IngredientDto ingredient, IngredientDetailsDto ingredientDetails, boolean inPantry) {
+    public IngredientWithPantryStatusDto(IngredientDto ingredient, IngredientRecetteDto ingredientRecette, boolean inPantry) {
         this.ingredient = ingredient;
-        this.ingredientDetails = ingredientDetails;
+        this.ingredientRecette = ingredientRecette;
         this.inPantry = inPantry;
     }
 }

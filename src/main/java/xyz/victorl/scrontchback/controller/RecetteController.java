@@ -112,19 +112,19 @@ public class RecetteController {
             @PathVariable Integer recipeId, @PathVariable Integer userId) {
 
         List<IngredientRecetteDto> recipeIngredients = recetteService.getIngredientsForAllSteps(recipeId);
-
         List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
 
         List<IngredientWithPantryStatusDto> ingredientsWithPantryStatus = recipeIngredients.stream()
                 .map(ingredientRecette -> {
 
                     IngredientDto ingredientDto = ingredientRecette.getIdIngredient();
-                    IngredientDetailsDto ingredientDetailsDto = ingredientRecette.getIdIngredientDetails(); // Assuming this method exists
-
                     boolean inPantry = userIngredients.stream()
                             .anyMatch(userIngredient -> userIngredient.getId().equals(ingredientDto.getId()));
-
-                    return new IngredientWithPantryStatusDto(ingredientDto, ingredientDetailsDto, inPantry);
+                    return new IngredientWithPantryStatusDto(
+                            ingredientDto,
+                            ingredientRecette,
+                            inPantry
+                    );
                 })
                 .toList();
 
