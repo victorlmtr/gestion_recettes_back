@@ -15,11 +15,12 @@ import java.util.Set;
 @Table(name = "etape")
 public class Etape {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_etape", nullable = false)
     private Integer id;
 
     @Column(name = "duree_etape", nullable = false)
-    @Convert(converter = DurationConverter.class) // Add this line to use the converter
+    @Convert(converter = DurationConverter.class)
     private Duration dureeEtape;
 
     @Column(name = "instructions_etape", nullable = false, length = 2000)

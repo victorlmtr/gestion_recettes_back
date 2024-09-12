@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name = "type_recette")
 public class TypeRecette {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_type_recette", nullable = false)
     private Integer id;
 
@@ -19,7 +20,7 @@ public class TypeRecette {
     private String libTypeRecette;
 
     @Column(name = "icone_type_recette", nullable = false)
-    private byte[] iconeTypeRecette;
+    private String iconeTypeRecette;
 
     @OneToMany(mappedBy = "idTypeRecette")
     private Set<Recette> recettes = new LinkedHashSet<>();

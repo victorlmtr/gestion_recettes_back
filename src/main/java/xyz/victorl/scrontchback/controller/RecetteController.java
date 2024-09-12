@@ -86,31 +86,52 @@ public class RecetteController {
     }
 
     @GetMapping("/{recipeId}/missing-ingredients/{userId}/count")
-    public ResponseEntity<MissingIngredientsResponse> getMissingIngredientsCount(@PathVariable Integer recipeId, @PathVariable Integer userId) {
+    public ResponseEntity<MissingIngredientsResponse> getMissingIngredientsCount(
+            @PathVariable Integer recipeId, @PathVariable Integer userId) {
+
         List<IngredientRecetteDto> recipeIngredients = recetteService.getIngredientsForAllSteps(recipeId);
         List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
+
+        // Extract the ingredient IDs from the user's ingredients for easier comparison
+        List<Integer> userIngredientIds = userIngredients.stream()
+                .map(IngredientDto::getId)
+                .toList();
+
+        // Count missing ingredients by checking if the recipe ingredient's ID is not in the user's ingredient list
         long missingIngredientsCount = recipeIngredients.stream()
-                .filter(ingredient -> !userIngredients.contains(ingredient))
+                .map(IngredientRecetteDto::getIdIngredient)  // Extract the IngredientDto from IngredientRecetteDto
+                .map(IngredientDto::getId)                   // Extract the ID from IngredientDto
+                .filter(idIngredient -> !userIngredientIds.contains(idIngredient))  // Check if not in user's ingredients
                 .count();
+
         return new ResponseEntity<>(new MissingIngredientsResponse(missingIngredientsCount), HttpStatus.OK);
     }
 
     @GetMapping("/{recipeId}/missing-ingredients/{userId}")
-    public ResponseEntity<List<IngredientWithPantryStatusDto>> getMissingIngredients(@PathVariable Integer recipeId, @PathVariable Integer userId) {
-        List<IngredientRecetteDto> ingredients = recetteService.getIngredientsForAllSteps(recipeId);
+    public ResponseEntity<List<IngredientWithPantryStatusDto>> getMissingIngredients(
+            @PathVariable Integer recipeId, @PathVariable Integer userId) {
+
+        List<IngredientRecetteDto> recipeIngredients = recetteService.getIngredientsForAllSteps(recipeId);
+
         List<IngredientDto> userIngredients = stockIngredientService.getIngredientsForUser(userId);
-        List<IngredientWithPantryStatusDto> ingredientsWithPantryStatus = ingredients.stream()
+
+        List<IngredientWithPantryStatusDto> ingredientsWithPantryStatus = recipeIngredients.stream()
                 .map(ingredientRecette -> {
+
                     IngredientDto ingredientDto = ingredientRecette.getIdIngredient();
+                    IngredientDetailsDto ingredientDetailsDto = ingredientRecette.getIdIngredientDetails(); // Assuming this method exists
+
                     boolean inPantry = userIngredients.stream()
-                            .filter(ui -> ui.getId().equals(ingredientDto.getId()))
-                            .findFirst()
-                            .orElse(null) != null;
-                    return new IngredientWithPantryStatusDto(ingredientDto, inPantry);
+                            .anyMatch(userIngredient -> userIngredient.getId().equals(ingredientDto.getId()));
+
+                    return new IngredientWithPantryStatusDto(ingredientDto, ingredientDetailsDto, inPantry);
                 })
                 .toList();
+
         return new ResponseEntity<>(ingredientsWithPantryStatus, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/recent")
     public ResponseEntity<List<RecetteDto>> getFiveMostRecentRecipes() {

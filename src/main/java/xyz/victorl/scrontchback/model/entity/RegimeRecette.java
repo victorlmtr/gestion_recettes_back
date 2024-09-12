@@ -22,6 +22,6 @@ public class RegimeRecette {
     private String libRegimeRecette;
 
     @Column(name = "icone_regime_recette")
-    private byte[] iconeRegimeRecette;
+    private String iconeRegimeRecette;
 
 }

@@ -38,17 +38,6 @@ public class RegimeRecetteController {
         }
     }
 
-    @GetMapping("/{id}/icon")
-    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
-        RegimeRecetteDto regimeRecetteDto = regimeRecetteService.getRegimeById(id);
-        if (regimeRecetteDto == null || regimeRecetteDto.getIconeRegimeRecette() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<>(regimeRecetteDto.getIconeRegimeRecette(), headers, HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<RegimeRecetteDto> createRegime(@RequestBody RegimeRecetteDto regimeRecetteDto) {
         RegimeRecetteDto createdRegime = regimeRecetteService.createRegime(regimeRecetteDto);

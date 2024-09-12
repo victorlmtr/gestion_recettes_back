@@ -37,17 +37,6 @@ public class TypeRecetteController {
         return ResponseEntity.ok(type);
     }
 
-    @GetMapping("/{id}/icon")
-    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
-        TypeRecetteDto typeRecetteDto = typeRecetteService.getTypeById(id);
-        if (typeRecetteDto == null || typeRecetteDto.getIconeTypeRecette() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<>(typeRecetteDto.getIconeTypeRecette(), headers, HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<TypeRecetteDto> createType(@RequestBody TypeRecetteDto typeRecetteDto) {
         TypeRecetteDto createdType = typeRecetteService.createType(typeRecetteDto);

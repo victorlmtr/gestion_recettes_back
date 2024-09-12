@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name = "type_etape")
 public class TypeEtape {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_type_etape", nullable = false)
     private Integer id;
 
