@@ -24,10 +24,12 @@ public class StockIngredientController {
             @PathVariable Integer idUtilisateur) {
         return stockIngredientService.getStockIngredientById(idIngredient, idUtilisateur);
     }
+
     @PostMapping
-    public StockIngredientDto createStockIngredient(@RequestBody StockIngredientDto stockIngredientDto){
+    public StockIngredientDto createStockIngredient(@RequestBody StockIngredientDto stockIngredientDto) {
         return stockIngredientService.createStockIngredient(stockIngredientDto);
     }
+
     @PutMapping("/{idIngredient}/{idUtilisateur}")
     public StockIngredientDto updateStockIngredient(
             @PathVariable Integer idIngredient,
@@ -43,4 +45,3 @@ public class StockIngredientController {
         stockIngredientService.deleteStockIngredient(idIngredient, idUtilisateur);
     }
 }
-
