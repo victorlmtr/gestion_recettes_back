@@ -1,8 +1,12 @@
 package xyz.victorl.scrontchback.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import jakarta.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -10,12 +14,14 @@ import jakarta.persistence.*;
 @Table(name = "regime_recette")
 public class RegimeRecette {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_regime_recette", nullable = false)
     private Integer id;
 
     @Column(name = "lib_regime_recette", nullable = false, length = 50)
     private String libRegimeRecette;
 
-    @Column(name = "icone_regime_recette", nullable = false)
-    private String iconeRegimeRecette; // Updated to String
+    @Column(name = "icone_regime_recette")
+    private String iconeRegimeRecette;
+
 }

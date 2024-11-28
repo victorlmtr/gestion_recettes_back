@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "non_consommable")
 public class NonConsommable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_non_consommable", nullable = false)
     private Integer id;
 

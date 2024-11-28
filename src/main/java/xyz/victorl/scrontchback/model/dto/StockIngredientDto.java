@@ -10,6 +10,6 @@ import java.io.Serializable;
  */
 @Value
 public class StockIngredientDto implements Serializable {
-    IngredientDto idIngredient;
-    UtilisateurDto idUtilisateur;
+    Integer idIngredient;
+    Integer idUtilisateur;
 }

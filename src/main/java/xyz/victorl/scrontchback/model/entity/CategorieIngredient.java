@@ -14,13 +14,14 @@ import java.util.Set;
 public class CategorieIngredient {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categorie_ingredient")
     private Integer id;
 
     @Column(name = "lib_categorie_ingredient", nullable = false)
     private String libCategorieIngredient;
 
-    @Column(name = "icone_categorie", nullable = false)
+    @Column(name = "icone_categorie")
     private String iconeCategorie;
 
     @OneToMany(mappedBy = "categorieIngredient", cascade = CascadeType.ALL, orphanRemoval = true)
