@@ -15,9 +15,7 @@ public interface CategorieIngredientMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     CategorieIngredient partialUpdate(CategorieIngredientDto categorieIngredientDto, @MappingTarget CategorieIngredient categorieIngredient);
 
-
     List<CategorieIngredientDto> toDtoList(List<CategorieIngredient> categorieIngredients);
 
     List<CategorieIngredient> toEntityList(List<CategorieIngredientDto> categorieIngredientDtos);
-
 }

@@ -20,8 +20,8 @@ public class CategorieIngredient {
     @Column(name = "lib_categorie_ingredient", nullable = false)
     private String libCategorieIngredient;
 
-    @Column(name = "icone_categorie")
-    private byte[] iconeCategorie;
+    @Column(name = "icone_categorie", nullable = false)
+    private String iconeCategorie;
 
     @OneToMany(mappedBy = "categorieIngredient", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

@@ -12,5 +12,5 @@ import java.io.Serializable;
 public class TypeRecetteDto implements Serializable {
     Integer id;
     String libTypeRecette;
-    byte[] iconeTypeRecette;
+    String iconeTypeRecette;
 }

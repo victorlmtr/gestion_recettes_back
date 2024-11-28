@@ -19,9 +19,8 @@ public class TypeRecette {
     private String libTypeRecette;
 
     @Column(name = "icone_type_recette", nullable = false)
-    private byte[] iconeTypeRecette;
+    private String iconeTypeRecette;
 
     @OneToMany(mappedBy = "idTypeRecette")
     private Set<Recette> recettes = new LinkedHashSet<>();
-
 }

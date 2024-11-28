@@ -1,12 +1,8 @@
 package xyz.victorl.scrontchback.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Hibernate;
 import jakarta.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -20,7 +16,6 @@ public class RegimeRecette {
     @Column(name = "lib_regime_recette", nullable = false, length = 50)
     private String libRegimeRecette;
 
-    @Column(name = "icone_regime_recette")
-    private byte[] iconeRegimeRecette;
-
+    @Column(name = "icone_regime_recette", nullable = false)
+    private String iconeRegimeRecette; // Updated to String
 }

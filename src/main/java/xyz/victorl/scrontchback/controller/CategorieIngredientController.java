@@ -37,16 +37,6 @@ public class CategorieIngredientController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{id}/icon")
-    public ResponseEntity<byte[]> getIcon(@PathVariable Integer id) {
-        CategorieIngredientDto categorieDto = categorieIngredientService.getCategorieById(id);
-        if (categorieDto == null || categorieDto.getIconeCategorie() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_PNG);
-        return new ResponseEntity<>(categorieDto.getIconeCategorie(), headers, HttpStatus.OK);
-    }
 
     @PostMapping
     public ResponseEntity<CategorieIngredientDto> createCategorie(@RequestBody CategorieIngredientDto categorieDto) {

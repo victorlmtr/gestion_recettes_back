@@ -60,7 +60,7 @@ public class Recette {
     @JsonManagedReference
     private Set<Etape> etapes = new LinkedHashSet<>();
 
-    @Transient // for calculated fields
+    @Transient // used for calculated fields
     private Duration totalTime;
 
     public Duration getTotalTime() {
